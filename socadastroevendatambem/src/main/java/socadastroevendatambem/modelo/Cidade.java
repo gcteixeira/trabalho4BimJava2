@@ -1,15 +1,16 @@
-package socadastroevendatambem;
+package socadastroevendatambem.modelo;
 
 import java.io.Serializable;
 
-public class Pais implements Serializable {
+public class Cidade implements Serializable {
 
 	private int id;
 	private String nome;
+	private Uf uf;
 	
-	public Pais() {
+	public Cidade() {
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -22,12 +23,16 @@ public class Pais implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public Uf getUf() {
+		return uf;
+	}
+	public void setUf(Uf uf) {
+		this.uf = uf;
+	}
 
 	@Override
 	public String toString() {
 		return nome;
 	}
-	
-	
 	
 }

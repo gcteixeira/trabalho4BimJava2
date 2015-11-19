@@ -1,4 +1,4 @@
-package socadastroevendatambem;
+package socadastroevendatambem.modelo;
 
 import java.io.Serializable;
 

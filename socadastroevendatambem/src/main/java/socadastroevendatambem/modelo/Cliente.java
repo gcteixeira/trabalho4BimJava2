@@ -1,28 +1,21 @@
-package socadastroevendatambem;
+package socadastroevendatambem.modelo;
 
 import java.util.Date;
 import java.util.InputMismatchException;
 
 
 
-public class Pessoa {
+public class Cliente {
 	private int id;
 	private String nome;
-	// se fisica 0, se juridica 1
-	private int tipo;
-	private String apelido;
 	private String endereco;
 	private String numero;
 	private String bairro;
 	private Cidade cidade;
+	private Estado estado;
 	private String telefone;
-	private String contato;
-	private Date dataNascimento;
-	private String cpfcnpj;
-	private String rginscricao;
-	private String complemento;
-	
-	public Pessoa() {
+
+	public Cliente() {
 	}
 
 	public int getId() {
@@ -41,21 +34,7 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public int getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getApelido() {
-		return apelido;
-	}
-
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
-	}
+	
 
 	public String getEndereco() {
 		return endereco;
@@ -97,45 +76,10 @@ public class Pessoa {
 		this.telefone = telefone;
 	}
 
-	public String getContato() {
-		return contato;
-	}
+	
+	
 
-	public void setContato(String contato) {
-		this.contato = contato;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getCpfcnpj() {
-		return cpfcnpj;
-	}
-
-	public void setCpfcnpj(String cpfcnpj) {
-		this.cpfcnpj = cpfcnpj;
-	}
-
-	public String getRginscricao() {
-		return rginscricao;
-	}
-
-	public void setRginscricao(String rginscricao) {
-		this.rginscricao = rginscricao;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
+	
 
 	@Override
 	public String toString() {
