@@ -114,21 +114,18 @@ public class PainelApp extends JPanel {
 		});
 		mnEndereo.add(mntmNewMenuItem);
 		
-		JMenu mnMovimento = new JMenu("Movimento");
+		JMenu mnMovimento = new JMenu("Venda");
 		menuBar.add(mnMovimento);
 		
-//		JMenuItem mntmNovaCompravenda = new JMenuItem("Nova Compra/Venda");
-//		mntmNovaCompravenda.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				
-//				FrmMovimento m = new FrmMovimento();
-//				m.setVisible(true);
-//			}
-//		});
-//		mnMovimento.add(mntmNovaCompravenda);
-		
-		JMenu mnContas = new JMenu("Contas");
-		menuBar.add(mnContas);
+		JMenuItem mntmPedido = new JMenuItem("Pedido");
+		mntmPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				FrmMovimento m = new FrmMovimento();
+				m.setVisible(true);
+			}
+		});
+
 		
 		
 		JMenu mnRelatorios = new JMenu("Relatorios");
