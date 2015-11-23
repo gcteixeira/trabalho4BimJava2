@@ -3,20 +3,15 @@ package socadastroevendatambem.modelo;
 import java.util.Date;
 import java.util.InputMismatchException;
 
-
-
 public class Cliente {
 	private int id;
 	private String nome;
 	private String endereco;
-	private String numero;
-	private String bairro;
 	private Cidade cidade;
 	private Estado estado;
 	private String telefone;
-
-	public Cliente() {
-	}
+	private String email;
+	private Genero gerero;
 
 	public int getId() {
 		return id;
@@ -34,30 +29,12 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	
-
 	public String getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
 	}
 
 	public Cidade getCidade() {
@@ -68,6 +45,14 @@ public class Cliente {
 		this.cidade = cidade;
 	}
 
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -76,10 +61,21 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	
-	
+	public String getEmail() {
+		return email;
+	}
 
-	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Genero getGerero() {
+		return gerero;
+	}
+
+	public void setGerero(Genero gerero) {
+		this.gerero = gerero;
+	}
 
 	@Override
 	public String toString() {
@@ -88,12 +84,10 @@ public class Cliente {
 
 	public static boolean isCPF(String CPF) {
 
-		if (CPF.equals("00000000000") || CPF.equals("11111111111")
-				|| CPF.equals("22222222222") || CPF.equals("33333333333")
-				|| CPF.equals("44444444444") || CPF.equals("55555555555")
-				|| CPF.equals("66666666666") || CPF.equals("77777777777")
-				|| CPF.equals("88888888888") || CPF.equals("99999999999")
-				|| (CPF.length() != 11)) {
+		if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222")
+				|| CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555")
+				|| CPF.equals("66666666666") || CPF.equals("77777777777") || CPF.equals("88888888888")
+				|| CPF.equals("99999999999") || (CPF.length() != 11)) {
 			return (false);
 		}
 		char dig10, dig11;
@@ -139,19 +133,14 @@ public class Cliente {
 	}
 
 	public static String imprimeCPF(String CPF) {
-		return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
-				+ CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+		return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." + CPF.substring(6, 9) + "-"
+				+ CPF.substring(9, 11));
 	}
 
 	public static boolean isCNPJ(String CNPJ) {
-		if (CNPJ.equals("00000000000000") || CNPJ.equals("11111111111111")
-				|| CNPJ.equals("22222222222222")
-				|| CNPJ.equals("33333333333333")
-				|| CNPJ.equals("44444444444444")
-				|| CNPJ.equals("55555555555555")
-				|| CNPJ.equals("66666666666666")
-				|| CNPJ.equals("77777777777777")
-				|| CNPJ.equals("88888888888888")
+		if (CNPJ.equals("00000000000000") || CNPJ.equals("11111111111111") || CNPJ.equals("22222222222222")
+				|| CNPJ.equals("33333333333333") || CNPJ.equals("44444444444444") || CNPJ.equals("55555555555555")
+				|| CNPJ.equals("66666666666666") || CNPJ.equals("77777777777777") || CNPJ.equals("88888888888888")
 				|| CNPJ.equals("99999999999999") || (CNPJ.length() != 14))
 			return (false);
 
@@ -205,9 +194,8 @@ public class Cliente {
 	}
 
 	public static String imprimeCNPJ(String CNPJ) {
-		return (CNPJ.substring(0, 2) + "." + CNPJ.substring(2, 5) + "."
-				+ CNPJ.substring(5, 8) + "." + CNPJ.substring(8, 12) + "-" + CNPJ
-					.substring(12, 14));
+		return (CNPJ.substring(0, 2) + "." + CNPJ.substring(2, 5) + "." + CNPJ.substring(5, 8) + "."
+				+ CNPJ.substring(8, 12) + "-" + CNPJ.substring(12, 14));
 	}
 
 }

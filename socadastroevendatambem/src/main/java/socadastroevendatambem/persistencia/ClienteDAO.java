@@ -1,7 +1,6 @@
 package socadastroevendatambem.persistencia;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,9 +11,11 @@ import java.util.logging.Logger;
 
 import socadastroevendatambem.modelo.Cidade;
 import socadastroevendatambem.modelo.Cliente;
+import socadastroevendatambem.modelo.Estado;
+import socadastroevendatambem.modelo.Genero;
 
 public class ClienteDAO {
-	
+
 	Connection con = ConexaoSing.con;
 	PreparedStatement stmt;
 	String sql;
@@ -22,16 +23,17 @@ public class ClienteDAO {
 	// INSERE UMA PESSOA NO BANCO
 	public String inserir(Cliente cliente) {
 		try {
-			sql = "insert into pessoa (nome, apelido, tipo, endereco, numero, bairro, cidade_idcidade, telefone, datanasc, cpfcnpj, rginscricao, complemento, contato) values (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			sql = "insert into pessoa (nome, endereco, cidade, cidade, estado, telefone, email, genero) values (?,?,?,?,?,?,?,?);";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, cliente.getNome());
-			stmt.setString(4, cliente.getEndereco());
-			stmt.setString(5, cliente.getNumero());
-			stmt.setString(6, cliente.getBairro());
-			stmt.setInt(7, cliente.getCidade().getId());
-			stmt.setString(8, cliente.getTelefone());
+			stmt.setString(2, cliente.getEndereco());
+			stmt.setInt(3, cliente.getCidade().getId());
+			stmt.setString(4, cliente.getEstado().getNome());
+			stmt.setString(5, cliente.getTelefone());
+			stmt.setString(6, cliente.getEmail());
+			stmt.setString(6, cliente.getGerero().getNome());
+
 			stmt.executeUpdate();
-			
 			stmt.close();
 			return "Pessoa cadastrada com sucesso";
 
@@ -39,13 +41,12 @@ public class ClienteDAO {
 			return "ERRO";
 		}
 
-		
 	}
 
 	// LISTA AS PESSOAS DO BANCO
 	public List<Cliente> listar() {
 		try {
-			String sql = "select idpessoa, nome, apelido, tipo, endereco, numero, bairro, cidade_idcidade, telefone, contato, datanasc, cpfcnpj, rginscricao, complemento from pessoa";
+			String sql = "select idpessoa,nome, endereco, cidade_idcidade ,estado, telefone, email, genero from pessoa";
 			stmt = con.prepareStatement(sql);
 			ResultSet result = stmt.executeQuery();
 			List<Cliente> clientes = new ArrayList<>();
@@ -53,16 +54,21 @@ public class ClienteDAO {
 				Cliente cliente = new Cliente();
 				cliente.setId(result.getInt(1));
 				cliente.setNome(result.getString(2));
-				cliente.setEndereco(result.getString(5));
-				cliente.setNumero(result.getString(6));
-				cliente.setBairro(result.getString(7));
-
+				cliente.setEndereco(result.getString(3));
 				CidadeDAO dao = new CidadeDAO();
-				Cidade cidade = dao.buscar(result.getInt(8));
+				Cidade cidade = dao.buscar(result.getInt(4));
 				cliente.setCidade(cidade);
-
-				cliente.setTelefone(result.getString(9));
-
+				// cliente.getCidade().getId();
+				EstadoDAO daoe = new EstadoDAO();
+				Estado estado = daoe.buscar(result.getString(4));
+				cliente.setEstado(estado);
+				// cliente.setEstado().getNome(); //5
+				cliente.setTelefone(result.getString(6));
+				cliente.setEmail(result.getString(7));
+				// cliente.setGerero().getNome();
+				GeneroDAO daog = new GeneroDAO();
+				Genero genero = daog.buscar(result.getString(8));
+				cliente.setGerero(genero);
 
 				clientes.add(cliente);
 			}
@@ -70,15 +76,14 @@ public class ClienteDAO {
 			stmt.close();
 			return clientes;
 		} catch (SQLException ex) {
-			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null,
-					ex);
-		} 
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return null;
 	}
 
 	public Cliente buscar(Integer id) {
 		try {
-			
+
 			String sql = "select * from cliente where idcliente = ?";
 			stmt = con.prepareStatement(sql);
 
@@ -88,35 +93,38 @@ public class ClienteDAO {
 			while (result.next()) {
 				cliente.setId(result.getInt(1));
 				cliente.setNome(result.getString(2));
-				cliente.setEndereco(result.getString(5));
-				cliente.setNumero(result.getString(6));
-				cliente.setBairro(result.getString(7));
-
+				cliente.setEndereco(result.getString(3));
 				CidadeDAO dao = new CidadeDAO();
-				Cidade cidade = dao.buscar(result.getInt(8));
+				Cidade cidade = dao.buscar(result.getInt(4));
 				cliente.setCidade(cidade);
+				// cliente.getCidade().getId();
+				EstadoDAO daoe = new EstadoDAO();
+				Estado estado = daoe.buscar(result.getString(4));
+				cliente.setEstado(estado);
+				// cliente.setEstado().getNome(); //5
+				cliente.setTelefone(result.getString(6));
+				cliente.setEmail(result.getString(7));
+				// cliente.setGerero().getNome();
+				GeneroDAO daog = new GeneroDAO();
+				Genero genero = daog.buscar(result.getString(8));
+				cliente.setGerero(genero);
 
-				cliente.setTelefone(result.getString(9));
-
-
-				
 			}
-			
+
 			result.close();
 			stmt.close();
-			
+
 			return cliente;
-			
+
 		} catch (SQLException ex) {
-			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null,
-					ex);
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
 	}
 
 	public String deletar(Integer id) {
 		try {
-			
+
 			String sql = "delete from cliente where idcliente=?";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, id.intValue());
@@ -134,72 +142,68 @@ public class ClienteDAO {
 	public String alterar(Cliente cliente) {
 		try {
 			con = Conexao.conectar();
-			String sql = "update cliente set nome=?, apelido=?, datanasc=?, rginscricao=?, cpfcnpj=?, endereco=?, numero=?, bairro=?, cidade_idcidade=?, telefone=?, complemento=?, tipo=?, contato=? where idpessoa=?";
+			String sql = "update cliente set nome=?, endereco=?, cidade=?, estado=?, telefone=?, email=?, genero=? where idpessoa=?";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, cliente.getNome());
-			stmt.setString(6, cliente.getEndereco());
-			stmt.setString(7, cliente.getNumero());
-			stmt.setString(8, cliente.getBairro());
-			stmt.setInt(9, cliente.getCidade().getId());
-			stmt.setString(10, cliente.getTelefone());
-			stmt.setInt(14, cliente.getId());
+			stmt.setString(2, cliente.getEndereco());
+			stmt.setInt(3, cliente.getCidade().getId());
+			stmt.setString(4, cliente.getEstado().getNome());
+			stmt.setString(5, cliente.getTelefone());
+			stmt.setString(6, cliente.getEmail());
+			stmt.setString(6, cliente.getGerero().getNome());
 			stmt.executeUpdate();
-			
 			stmt.close();
 			return "Cliente alterado com sucesso";
 		} catch (SQLException ex) {
-			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null,
-					ex);
-		} 
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return "ok";
 	}
 
-
-	public Cliente buscar(Integer id, String nome, Byte tipo, String apelido,
-			String rua, String numero, String bairro, String cidade,
-			String telefone, String contato) {
+	public Cliente buscar(Integer id, String nome, String endereco, Integer cidade, String estado, String telefone,
+			String email, String genero) {
 		try {
-			String sql = "select * from movimento where nome=? and uf=?";
+			String sql = "select * from movimento where nome=? and ciadade=?";
 			stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, id);
 			stmt.setString(2, nome);
-			stmt.setByte(3, tipo);
-			stmt.setString(4, apelido);
-			stmt.setString(5, rua);
-			stmt.setString(6, numero);
-			stmt.setString(7, bairro);
-			stmt.setString(8, cidade);
-			stmt.setString(9, telefone);
-			stmt.setString(10, contato);
+			stmt.setString(3, endereco);
+			stmt.setInt(4, cidade);
+			stmt.setString(5, estado);
+			stmt.setString(6, telefone);
+			stmt.setString(7, email);
+			stmt.setString(8, genero);
 			ResultSet result = stmt.executeQuery();
 			result.next();
+
 			Cliente cliente = new Cliente();
-			cliente.setId(new Integer(result.getInt(1)));
-			cliente.setNome(new String(result.getString(2)));
-		 // cliente.setRua(new String(result.getString(5)));
-			cliente.setNumero(new String(result.getString(6)));
-			cliente.setBairro(new String(result.getString(7)));
-
+			cliente.setId(result.getInt(1));
+			cliente.setNome(result.getString(2));
+			cliente.setEndereco(result.getString(3));
 			CidadeDAO dao = new CidadeDAO();
-			Cidade cid = dao.buscar(result.getInt(8));
-			cliente.setCidade(cid);
+			Cidade cidade1 = dao.buscar(result.getInt(4));
+			cliente.setCidade(cidade1);
+			// cliente.getCidade().getId();
+			EstadoDAO daoe = new EstadoDAO();
+			Estado estado1 = daoe.buscar(result.getString(4));
+			cliente.setEstado(estado1);
+			// cliente.setEstado().getNome(); //5
+			cliente.setTelefone(result.getString(6));
+			cliente.setEmail(result.getString(7));
+			// cliente.setGerero().getNome();
+			GeneroDAO daog = new GeneroDAO();
+			Genero genero1 = daog.buscar(result.getString(8));
+			cliente.setGerero(genero1);
 
-			cliente.setTelefone(new String(result.getString(9)));
-
-			
 			result.close();
 			stmt.close();
 			return cliente;
 
 		} catch (SQLException ex) {
-			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null,
-					ex);
-		} 
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		return null;
 	}
-	
-	
-	
-	
+
 }

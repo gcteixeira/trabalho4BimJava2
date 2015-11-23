@@ -6,7 +6,8 @@ public class Cidade implements Serializable {
 
 	private int id;
 	private String nome;
-	private Uf uf;
+    private Estado estado;
+    private Pais pais;
 	
 	public Cidade() {
 	}
@@ -23,11 +24,19 @@ public class Cidade implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Uf getUf() {
-		return uf;
+	public Estado getEstado() {
+		return estado;
 	}
-	public void setUf(Uf uf) {
-		this.uf = uf;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 	@Override
