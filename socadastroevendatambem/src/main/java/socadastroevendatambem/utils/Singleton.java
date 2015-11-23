@@ -3,16 +3,12 @@ package socadastroevendatambem.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-
 import socadastroevendatambem.modelo.Categoria;
 import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Pais;
 import socadastroevendatambem.modelo.Cliente;
+import socadastroevendatambem.modelo.Estado;
+import socadastroevendatambem.modelo.Pais;
 import socadastroevendatambem.modelo.Produto;
-import socadastroevendatambem.modelo.Uf;
-import socadastroevendatambem.persistencia.CategoriaDAO;
-import socadastroevendatambem.dialogs.CadPais;
 
 public class Singleton {
 
@@ -27,7 +23,7 @@ public class Singleton {
 	public Cidade cidade = new Cidade();
 	public Cliente p = new Cliente();
 	public Pais pais = new Pais();
-	public Uf uf = new Uf();
+	public Estado  estado = null;
 	public Produto produto = new Produto();
 	
 	public boolean statusBotao = true;

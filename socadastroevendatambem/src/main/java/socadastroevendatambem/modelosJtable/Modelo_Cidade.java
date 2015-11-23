@@ -6,21 +6,21 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Uf;
+import socadastroevendatambem.modelo.Estado;
 import socadastroevendatambem.persistencia.CidadeDAO;
-import socadastroevendatambem.persistencia.UfDAO;
+import socadastroevendatambem.persistencia.EstadoDAO;
 
 public class Modelo_Cidade extends AbstractTableModel {
 
 	private List<Cidade> cidades = new ArrayList<>();
-	
+
 	private Cidade cidade;
 
-	//Getters and Setters
+	// Getters and Setters
 	public Cidade getCidade() {
 		return cidade;
 	}
-	
+
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
@@ -34,7 +34,7 @@ public class Modelo_Cidade extends AbstractTableModel {
 	}
 
 	/**
-	 * Metodos implementados de AbstractTableModel 
+	 * Metodos implementados de AbstractTableModel
 	 */
 	@Override
 	public int getRowCount() {
@@ -48,16 +48,16 @@ public class Modelo_Cidade extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		switch (columnIndex){
+		switch (columnIndex) {
 		case 0:
 			return cidades.get(rowIndex).getId();
 		case 1:
 			return cidades.get(rowIndex).getNome();
 		case 2:
-			return cidades.get(rowIndex).getUf();
+			return cidades.get(rowIndex).getEstado();
 		default:
 			return "Erro";
-			
+
 		}
 	}
 
@@ -74,7 +74,8 @@ public class Modelo_Cidade extends AbstractTableModel {
 			return "ERRO";
 		}
 	}
-	 public Cidade getSelectedObject(int row) {  
-	     return cidades.get(row);  
-	} 
+
+	public Cidade getSelectedObject(int row) {
+		return cidades.get(row);
+	}
 }
