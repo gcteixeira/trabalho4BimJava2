@@ -1,7 +1,7 @@
-package socadastroevendatambem.swing.paineis;
+package socadastroevendatambem.telalogin;
 
-import java.awt.Component;
-import java.awt.Dimension;
+
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,26 +10,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import socadastroevendatambem.dialogs.CadCliente;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.border.EmptyBorder;
 
-public class TelaAba extends JFrame {
+import socadastroevendatambem.dialogs.CadCliente;
+import socadastroevendatambem.swing.paineis.TelaAba;
+
+public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	 private static int maxW = 0;
-	    private static int maxH = 0;
+	private BlockPanel glass;
 
 	/**
 	 * Launch the application.
@@ -38,7 +37,7 @@ public class TelaAba extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaAba frame = new TelaAba();
+					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +49,9 @@ public class TelaAba extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaAba() {
+	public TelaPrincipal() {
+
+		blockParaLogin();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 300);
 		
@@ -122,35 +123,117 @@ public class TelaAba extends JFrame {
 		gbc_tabbedPane.gridx = 0;
 		gbc_tabbedPane.gridy = 1;
 		
-		tabbedPane.addChangeListener(new ChangeListener() {
 
-	            @Override
-	            public void stateChanged(ChangeEvent e) {
-	            	 Component mCompo=tabbedPane.getSelectedComponent();
-	            	 if(mCompo!=null){
-	                 tabbedPane.setPreferredSize(mCompo.getPreferredSize());
-	            	 }
-	                 TelaAba.this.pack();
-	            }
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setBounds(100, 100, 450, 300);
+//
+//		JMenuBar menuBar = new JMenuBar();
+//		setJMenuBar(menuBar);
+//
+//		JMenu mnCadastros = new JMenu("Cadastros");
+//		menuBar.add(mnCadastros);
+//
+//		JMenuItem mntmCliente = new JMenuItem("Cliente");
+//		mntmCliente.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				abrirTela();
+//			}
+//
+//		});
+//		mnCadastros.add(mntmCliente);
+//
+//		JMenuItem mntmBloquear = new JMenuItem("BLOQUEAR");
+//		mntmBloquear.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				block();
+//			}
+//		});
+//		mnCadastros.add(mntmBloquear);
+//		contentPane = new JPanel();
+//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		contentPane.setLayout(new BorderLayout(0, 0));
+//		setContentPane(contentPane);
 
-	        });
-
-		
-		
-		contentPane.add(tabbedPane, gbc_tabbedPane);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 
+	protected void block() {
+		setGlassPane(glass);
+		glass.setVisible(true);
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				for (int i = 0; i < 5; i++) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				glass.setVisible(false);
+			}
+		}).start();
+	}
+
+	private void blockParaLogin() {
+		Runnable acaoOk = () -> {
+			glass.setVisible(false);
+			glass = new BlockPanel();
+
+		};
+
+		// ---- USAR A INDICAÃ‡ÃƒO DE PROGRESSO.
+		// JXBusyLabel busy = new JXBusyLabel();
+		// busy.setBusy(true);
+		// glass = new BlockPanel(busy);
+		// -----------------------------------
+
+		// ---- USAR O PAINEL DE LOGIN.
+		PainelLogin painelLogin = new PainelLogin(acaoOk);
+		glass = new BlockPanel(painelLogin);
+		// -----------------------------------
+
+		setGlassPane(glass);
+
+		glass.setVisible(true);
+	}
+
+	private void abrirTela() {
+
+		TelaAba telaaba = new TelaAba();
+		ActionListener action = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.remove(telaaba);
+			}
+		};
+		
+		 telaaba.setCloseAction(action);
+		
+		 tabbedPane.addTab("Tela ", telaaba);
+		
+		 // TelaCadastroCliente telaCadastroCliente = new TelaCadastroCliente();
+		// ActionListener action = new ActionListener() {
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// tabbedPane.remove(telaCadastroCliente);
+		// }
+		// };
+		// telaCadastroCliente.setCloseAction(action);
+		//
+		// tabbedPane.addTab("Tela ", telaCadastroCliente);
+	}
 	protected void adicionaUm() {
 		CadCliente cadCliente = new CadCliente(this);
 		tabbedPane.addTab("Cliente", cadCliente);
 		tabbedPane.setSize(cadCliente.getSize());
 
-	//public void actionPerformed(ActionEvent e) {
 
-//		CadCliente cl = new CadCliente();
-//		cl.setVisible(true);
 		mostraUltima();
-''
+
 	}
 	
 	

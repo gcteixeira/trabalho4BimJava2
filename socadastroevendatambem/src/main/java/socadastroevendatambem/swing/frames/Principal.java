@@ -1,22 +1,8 @@
 package socadastroevendatambem.swing.frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-import socadastroevendatambem.swing.paineis.PainelApp;
-import socadastroevendatambem.swing.paineis.PainelLogin;
-import socadastroevendatambem.utils.MinhaAplicacao;
-
-import java.awt.Frame;
-import java.awt.Dimension;
-
-public class Principal extends JFrame {
-
-	private JPanel contentPane;
+	private PainelLogin contentPane;
 
 	/**
 	 * Launch the application.
@@ -41,7 +27,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setTitle("Choppeidan\u00E7a v1.1 ");
+		setTitle("Só Cadastro v1.1 ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 823, 501);
 	}
@@ -52,11 +38,10 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		revalidate();
 	}
-
 	public void showPrincipal() {
-		contentPane =  new PainelApp();
+		contentPane =  new TelaAba();
 		setContentPane(contentPane);
 		revalidate();
 	}
-
 }
+

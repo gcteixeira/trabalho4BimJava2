@@ -123,7 +123,7 @@ public class PainelApp extends JPanel {
 		JMenuItem mntmsair = new JMenuItem("Sair");
 		mntmsair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MinhaAplicacao.get().getTelaPrincipal().showLogin();
+				MinhaAplicacao.get().getTelaAba().showLogin();
 			}
 		});
 		mnConfiguraes.add(mntmsair);

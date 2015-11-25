@@ -1,6 +1,5 @@
 package socadastroevendatambem.dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,17 +10,16 @@ import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import socadastroevendatambem.modelo.Cidade;
 import socadastroevendatambem.modelo.Cliente;
+import socadastroevendatambem.dialogs.CadCliente;
 import socadastroevendatambem.modelosJtable.Modelo_Cliente;
 import socadastroevendatambem.persistencia.ClienteDAO;
 import socadastroevendatambem.swing.paineis.TelaAba;
@@ -485,7 +483,7 @@ public class CadCliente extends JPanel {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CadCliente.this.telaAba.getTabbedPane().remove(CadCliente.);
+				//CadCliente.this.telaAba.getTabbedPane().remove(CadCliente.);
 			}
 		});
 		btnCancelar.setIcon(new ImageIcon(CadCliente.class
@@ -496,6 +494,10 @@ public class CadCliente extends JPanel {
 		gbc_btnCancelar.gridy = 0;
 		buttonPane.add(btnCancelar, gbc_btnCancelar);
 
+	}
+
+	public CadCliente() {
+		// TODO Auto-generated constructor stub
 	}
 
 	protected void limparCampos() {
@@ -566,7 +568,11 @@ public class CadCliente extends JPanel {
 
 		return "OK";
 	}
+	
+	
+	
 
+	
 	// private void carregaDados() {
 	// PessoaDAO dao = new PessoaDAO();
 	// mpf.setPessoas(dao.listar());
