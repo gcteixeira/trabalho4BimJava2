@@ -1,32 +1,24 @@
 package socadastroevendatambem.dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
 import javax.swing.JScrollPane;
-
-import java.awt.Insets;
-
 import javax.swing.JTable;
 
+import socadastroevendatambem.modelo.Estado;
 import socadastroevendatambem.modelo.Pais;
-import socadastroevendatambem.modelo.Uf;
-import socadastroevendatambem.modelosJtable.Modelo_Uf;
-import socadastroevendatambem.persistencia.UfDAO;
+import socadastroevendatambem.modelosJtable.Modelo_Estado;
 import socadastroevendatambem.utils.Singleton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class BuscaEstado extends JDialog {
 	private JTable table;
@@ -52,17 +44,15 @@ public class BuscaEstado extends JDialog {
 	 * Create the dialog.
 	 */
 	Singleton s = Singleton.getInstance();
-	Modelo_Uf mu = new Modelo_Uf();
+	Modelo_Estado mu = new Modelo_Estado();
 	Pais p = new Pais();
-	Uf uf = new Uf();
+	Estado estado = null;
 	
 	public BuscaEstado() {
-		setTitle("So Cadastro\u00E7a - Busca de UF");
+		setTitle("So Cadastro - Busca de UF");
 
-		carregaDados();
 		
-		s.uf = uf;
-		s.uf.setPais(p);
+		s.estado = estado;
 		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
@@ -95,98 +85,7 @@ public class BuscaEstado extends JDialog {
 		gbc_buttonPane.gridy = 1;
 		getContentPane().add(buttonPane, gbc_buttonPane);
 
-		btnNovoUf = new JButton("Novo");
-		btnNovoUf.setVisible(s.statusBotao);
-		btnNovoUf.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Runnable r = new Runnable() {
-
-					@Override
-					public void run() {
-
-						CadEstado ce = new CadEstado();
-
-						ce.setVisible(true);
-
-						while (ce.isShowing()) {
-
-						}
-
-						carregaDados();
-
-					}
-				};
-				Thread t = new Thread(r);
-				t.start();
-
-			}
-		});
-		buttonPane.add(btnNovoUf);
-
-		JButton okButton = new JButton("Selecionar");
-		okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				int linha = table.getSelectedRow();
-
-				if (linha == -1) {
-
-					JOptionPane.showMessageDialog(null,
-							"Por Favor, selecione uma linha da lista de UF",
-							"A��o Ilegal", 1, imgAlert);
-
-				} else {
-					s.uf = getInstance();
-					
-					BuscaEstado.this.dispose();
-
-				}
-
-			}
-		});
-		buttonPane.add(okButton);
-
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					Uf uf = getInstance();
-					int dialogButton = JOptionPane.YES_NO_OPTION;
-					int result = JOptionPane.showConfirmDialog(null,
-							"Deseja excluir o estado " + uf.getNome() + "?",
-							"Deseja realizar essa opera��o?", dialogButton);
-
-					if (result == JOptionPane.YES_OPTION) {
-
-						UfDAO dao = new UfDAO();
-						if (dao.deletar(uf.getId()) == "NO") {
-							JOptionPane
-									.showMessageDialog(
-											null,
-											"Este UF tem cidades vinculados a ele, n�o � possivel excluir esse estado",
-											"Problemas ao Excluir", 1, imgAlert);
-						} else {
-							dao.deletar(uf.getId());
-
-							mu.fireTableDataChanged();
-
-							JOptionPane.showMessageDialog(null,
-									"Exclus�o feita com sucesso");
-							
-							carregaDados();
-						}
-
-					}
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null,
-							"Problemas ao excluir estado");
-				}
-
-			}
-		});
-		buttonPane.add(btnExcluir);
+		
 
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
@@ -198,15 +97,7 @@ public class BuscaEstado extends JDialog {
 
 	}
 
-	protected Uf getInstance() {
-		Uf uf = mu.getSelectedObject(table.getSelectedRow());
-		return uf;
-	}
 
-	private void carregaDados() {
-		UfDAO dao = new UfDAO();
-		mu.setUfs(dao.listar());
-		mu.fireTableDataChanged();
-	}
+
 
 }

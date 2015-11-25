@@ -10,8 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Estado;
-import socadastroevendatambem.modelo.Pais;
+
 
 public class CidadeDAO {
 	Connection con = ConexaoSing.con;
@@ -50,10 +49,7 @@ public class CidadeDAO {
 				cidade.setId(result.getInt(1));
 				cidade.setNome(result.getString(2));
 				// Buscando o UF pela chave
-				EstadoDAO dao = new EstadoDAO();
-				Estado estado = dao.buscar(result.getInt(3));
-				cidade.setEstado(estado);
-				cidades.add(cidade);
+					cidades.add(cidade);
 			}
 			result.close();
 			stmt.close();
@@ -76,9 +72,7 @@ public class CidadeDAO {
 			while (result.next()) {
 				cidade.setId(result.getInt(1));
 				cidade.setNome(result.getString(2));
-				EstadoDAO dao = new EstadoDAO();
-				Estado estado = dao.buscar(result.getInt(3));
-				cidade.setEstado(estado);
+				
 
 			}
 			result.close();
@@ -112,8 +106,7 @@ public class CidadeDAO {
 			String sql = "update cidade set nome=?,estado_idestado=? where idcidade=?";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, cidade.getNome());
-			stmt.setString(2, cidade.getEstado().getNome());
-			stmt.setInt(3, cidade.getId());
+			stmt.setInt(2, cidade.getId());
 			stmt.executeUpdate();
 	
 			stmt.close();
@@ -127,7 +120,7 @@ public class CidadeDAO {
 
 	public Cidade buscar(String nome) {
 		try {
-			String sql = "select idcidade,estado_idestado,nome from cidade where nome=?";
+			String sql = "select idcidade,nome from cidade where nome=?";
 			stmt = con.prepareStatement(sql);
 
 			stmt.setString(1, nome);
@@ -137,10 +130,6 @@ public class CidadeDAO {
 			while (result.next()) {
 				cidade.setId(result.getInt(1));
 				cidade.setNome(result.getString(2));
-
-				EstadoDAO dao = new EstadoDAO();
-				Estado estado = dao.buscar(new String(result.getString(3)));
-				cidade.setEstado(estado);
 			}
 			result.close();
 			stmt.close();

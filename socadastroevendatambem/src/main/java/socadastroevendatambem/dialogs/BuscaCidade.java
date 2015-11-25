@@ -19,7 +19,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTable;
 
 import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Uf;
+import socadastroevendatambem.modelo.Estado;
 import socadastroevendatambem.modelosJtable.Modelo_Cidade;
 import socadastroevendatambem.persistencia.CidadeDAO;
 import socadastroevendatambem.utils.Singleton;
@@ -51,18 +51,16 @@ public class BuscaCidade extends JDialog {
 
 	Singleton s = Singleton.getInstance();
 	Modelo_Cidade mc = new Modelo_Cidade();
-	private ImageIcon imgAlert = new ImageIcon(getClass().getResource("/choppeidanca/imagens/error.png"));
+	private ImageIcon imgAlert = new ImageIcon(getClass().getResource("/csocadastroevendatambem/imagens/error.png"));
 	private JButton btnNovo;
 	Cidade c = new Cidade();
-	Uf uf = new Uf();
 
 	public BuscaCidade() {
-		setTitle("Choppeidan\u00E7a - Busca de Cidade");
+		setTitle("Só Cadastro - Busca de Cidade");
 
 		carregaDados();
 
 		s.cidade = c;
-		s.cidade.setUf(uf);
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);

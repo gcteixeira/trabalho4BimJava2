@@ -1,45 +1,30 @@
 package socadastroevendatambem.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
 import java.awt.GridBagConstraints;
-
-import javax.swing.JTextField;
-
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Uf;
 import socadastroevendatambem.modelosJtable.Modelo_Cidade;
 import socadastroevendatambem.persistencia.CidadeDAO;
-import socadastroevendatambem.persistencia.UfDAO;
 import socadastroevendatambem.utils.Singleton;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class CadCidade extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNome;
-	private JTextField txtUf;
 
 	/**
 	 * Launch the application.
@@ -60,7 +45,6 @@ public class CadCidade extends JDialog {
 
 	Modelo_Cidade mc = new Modelo_Cidade();
 
-	Uf u = new Uf();
 	private JButton btnSalvar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -70,7 +54,7 @@ public class CadCidade extends JDialog {
 	Cidade c = new Cidade();
 
 	private ImageIcon imgAlert = new ImageIcon(getClass().getResource(
-			"/choppeidanca/imagens/error.png"));
+			"/socadastroevendatambem/imagens/error.png"));
 
 	
 	public CadCidade() {
@@ -78,7 +62,7 @@ public class CadCidade extends JDialog {
 		carregaDados();
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Choppeidan\u00E7a - Cadastro de Cidade");
+		setTitle("Só Cadastro - Cadastro de Cidade");
 		setModal(true);
 		setBounds(100, 100, 599, 212);
 		getContentPane().setLayout(new BorderLayout());
@@ -111,65 +95,6 @@ public class CadCidade extends JDialog {
 		contentPanel.add(txtNome, gbc_txtNome);
 		txtNome.setColumns(10);
 
-		JLabel lblUf = new JLabel("UF");
-		GridBagConstraints gbc_lblUf = new GridBagConstraints();
-		gbc_lblUf.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUf.anchor = GridBagConstraints.EAST;
-		gbc_lblUf.gridx = 0;
-		gbc_lblUf.gridy = 1;
-		contentPanel.add(lblUf, gbc_lblUf);
-
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Runnable r = new Runnable() {
-
-					@Override
-					public void run() {
-						s.statusBotao = true;
-						BuscaEstado be = new BuscaEstado();
-						be.setVisible(true);
-
-						while (be.isShowing()) {
-
-						}
-
-						txtUf.setText(s.uf.getNome());
-						u = s.uf;
-
-					}
-				};
-
-				Thread t = new Thread(r);
-				t.start();
-
-				// OU ISSO
-				//
-				// BuscaCidade bc = new BuscaCidade();
-				// bc.setVisible(true);
-
-			}
-		});
-		button.setIcon(new ImageIcon(CadCidade.class
-				.getResource("/choppeidanca/imagens/magnifier.png")));
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.gridx = 1;
-		gbc_button.gridy = 1;
-		contentPanel.add(button, gbc_button);
-
-		txtUf = new JTextField();
-		txtUf.setEditable(false);
-		GridBagConstraints gbc_txtUf = new GridBagConstraints();
-		gbc_txtUf.gridwidth = 4;
-		gbc_txtUf.insets = new Insets(0, 0, 5, 5);
-		gbc_txtUf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtUf.gridx = 2;
-		gbc_txtUf.gridy = 1;
-		contentPanel.add(txtUf, gbc_txtUf);
-		txtUf.setColumns(10);
-
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -178,7 +103,6 @@ public class CadCidade extends JDialog {
 
 					Cidade cidade = new Cidade();
 					cidade.setNome(txtNome.getText());
-					cidade.setUf(u);
 
 					CidadeDAO dao = new CidadeDAO();
 					dao.inserir(cidade);
@@ -236,19 +160,10 @@ public class CadCidade extends JDialog {
 
 						}
 
-						txtNome.setText(s.cidade.getNome());
-						txtUf.setText(s.cidade.getUf().getNome());						
-						c = s.cidade;
-						u = s.cidade.getUf();
 						
 						String nome = txtNome.getText();
-						String uf = txtUf.getText();
+
 					
-						if (!nome.equals("") || !uf.equals("")) {
-							btnSalvar.setEnabled(false);
-							btnEditar.setEnabled(true);
-							btnExcluir.setEnabled(true);
-						}
 
 					}
 				};
@@ -277,7 +192,7 @@ public class CadCidade extends JDialog {
 
 				try {
 					c.setNome(txtNome.getText());
-					c.setUf(u);
+
 
 					CidadeDAO dao = new CidadeDAO();
 					dao.alterar(c);
@@ -368,7 +283,7 @@ public class CadCidade extends JDialog {
 
 	private void limparCampos() {
 		txtNome.setText("");
-		txtUf.setText("");
+
 	}
 
 }

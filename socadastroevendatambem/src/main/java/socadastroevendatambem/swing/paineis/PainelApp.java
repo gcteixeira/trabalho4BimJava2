@@ -9,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import socadastroevendatambem.dialogs.CadCategoria;
 import socadastroevendatambem.dialogs.CadCidade;
@@ -25,7 +26,7 @@ public class PainelApp extends JPanel {
 	 * Create the panel.
 	 */
 //	private ImageIcon imgCheck = new ImageIcon(getClass().getResource("/logo.png"));
-	
+	private JTabbedPane tabbedPane;
 	public PainelApp() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{450, 0};
@@ -45,19 +46,6 @@ public class PainelApp extends JPanel {
 		JMenu mnCadastros = new JMenu("Cadastros");
 		menuBar.add(mnCadastros);
 		
-		JMenu mnPessoa = new JMenu("Pessoa");
-		mnCadastros.add(mnPessoa);
-		
-		JMenuItem mntmPessoaFsica = new JMenuItem("Pessoa F\u00EDsica");
-		mntmPessoaFsica.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadCliente cpf = new CadCliente();
-				cpf.setVisible(true);
-				
-			}
-		});
-		mnPessoa.add(mntmPessoaFsica);
-		
 
 	
 		JMenuItem mntmProduto = new JMenuItem("Produto");
@@ -67,52 +55,24 @@ public class PainelApp extends JPanel {
 				cp.setVisible(true);
 			}
 		});
+		tabbedPane.addTab("Teste", new JPanel());
+		mntmProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadProduto cp = new CadProduto();
+				cp.setVisible(true);
+			}
+		});
+		
 		
 		JMenuItem mntmCategoria = new JMenuItem("Categoria");
 		mntmCategoria.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				CadCategoria cc = new CadCategoria();
 				cc.setVisible(true);
 			}
 		});
 		mnCadastros.add(mntmCategoria);
-	
-		
-		JMenu mnEndereo = new JMenu("Endere\u00E7o");
-		mnCadastros.add(mnEndereo);
-		
-		JMenuItem mntmCidade = new JMenuItem("Cidade");
-		mntmCidade.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				CadCidade cc = new CadCidade();
-				cc.setVisible(true);
-				
-			}
-		});
-		mnEndereo.add(mntmCidade);
-		
-		JMenuItem mntmEstado = new JMenuItem("Estado");
-		mntmEstado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				CadEstado ce = new CadEstado();
-				ce.setVisible(true);
-				
-			}
-		});
-		mnEndereo.add(mntmEstado);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Pais");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				CadPais cp = new CadPais();
-				cp.setVisible(true);
-				
-			}
-		});
-		mnEndereo.add(mntmNewMenuItem);
 		
 		JMenu mnMovimento = new JMenu("Venda");
 		menuBar.add(mnMovimento);
@@ -120,9 +80,9 @@ public class PainelApp extends JPanel {
 		JMenuItem mntmPedido = new JMenuItem("Pedido");
 		mntmPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				FrmMovimento m = new FrmMovimento();
-				m.setVisible(true);
+//				
+//				FrmMovimento m = new FrmMovimento();
+//				m.setVisible(true);
 			}
 		});
 
@@ -168,5 +128,13 @@ public class PainelApp extends JPanel {
 		});
 		mnConfiguraes.add(mntmsair);
 
+	}
+	protected void adicionaUm() {
+		tabbedPane.addTab("1", new JPanel());
+		mostraUltima();
+	}
+	
+	private void mostraUltima() {
+		tabbedPane.setSelectedIndex(tabbedPane.getTabCount()-1);
 	}
 }

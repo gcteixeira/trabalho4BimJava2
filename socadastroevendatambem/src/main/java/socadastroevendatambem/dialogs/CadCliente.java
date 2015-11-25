@@ -1,57 +1,40 @@
 package socadastroevendatambem.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.JTextField;
-
-import java.awt.Insets;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.ImageIcon;
 
 import socadastroevendatambem.modelo.Cidade;
 import socadastroevendatambem.modelo.Cliente;
 import socadastroevendatambem.modelosJtable.Modelo_Cliente;
 import socadastroevendatambem.persistencia.ClienteDAO;
+import socadastroevendatambem.swing.paineis.TelaAba;
 import socadastroevendatambem.utils.Singleton;
 
-import java.awt.Window.Type;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+public class CadCliente extends JPanel {
 
-public class CadCliente extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNome;
-	private JTextField txtApelido;
+	private JTextField txtEmail;
 	private JTextField txtEndereco;
-	private JTextField txtNumero;
 	private JTextField txtBairro;
 	private JTextField txtCidade;
-	private JTextField txtComplemento;
 	private JFormattedTextField txtTelefone;
-	private JFormattedTextField txtDataNasc;
-	private JFormattedTextField txtCpf;
-	private JFormattedTextField txtRg;
 	private JButton btnNewButton;
 	private JButton btnSalvar;
 	private JButton btnListar;
@@ -65,7 +48,6 @@ public class CadCliente extends JDialog {
 	public static void main(String[] args) {
 		try {
 			CadCliente dialog = new CadCliente();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,14 +58,22 @@ public class CadCliente extends JDialog {
 	 * Create the dialog.
 	 */
 	private ImageIcon imgAlert = new ImageIcon(getClass().getResource(
-			"/choppeidanca/imagens/error.png"));
+			"/socadastroevendatambem/imagens/error.png"));
 	Modelo_Cliente mc = new Modelo_Cliente();
 	Singleton s = Singleton.getInstance();
 	Cliente p = new Cliente();
 	Cidade c = new Cidade();
+	private JButton ButtonEstado;
+	private JLabel lblEstado;
+	private JTextField textEstado;
+	private JLabel lblGenero;
+	private JButton buttonGenero;
+	private JTextField textGenero;
+	private TelaAba telaAba;
 
-	public CadCliente() {
-		setTitle("Choppeidan\u00E7a - Cadastro de Pessoa Fisica");
+	public CadCliente(TelaAba telaAba) {
+		this.telaAba = telaAba;
+//		setTitle("Só Cadastro - Cadastro de Cliente");
 
 		// carregaDados();
 
@@ -105,21 +95,19 @@ public class CadCliente extends JDialog {
 			e.printStackTrace();
 		}
 
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setModal(true);
-		setBounds(100, 100, 838, 465);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 45, 164, 35, 0, 120, 55,
+//		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//		setModal(true);
+		setPreferredSize(new Dimension(1000, 400));
+//		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[] { 45, 164, 35, 0, 120, 55,
 				116, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 20, 29, 20, 23, 35, 14, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_this.rowHeights = new int[] { 20, 29, 20, 23, 35, 14, 0, 0 };
+		gbl_this.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0,
+				1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_this.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				1.0, 0.0, Double.MIN_VALUE };
-		contentPanel.setLayout(gbl_contentPanel);
+		this.setLayout(gbl_this);
 
 		JLabel lblNome = new JLabel("Nome");
 		GridBagConstraints gbc_lblNome = new GridBagConstraints();
@@ -127,7 +115,7 @@ public class CadCliente extends JDialog {
 		gbc_lblNome.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNome.gridx = 0;
 		gbc_lblNome.gridy = 0;
-		contentPanel.add(lblNome, gbc_lblNome);
+		this.add(lblNome, gbc_lblNome);
 
 		txtNome = new JTextField();
 		GridBagConstraints gbc_txtNome = new GridBagConstraints();
@@ -136,87 +124,56 @@ public class CadCliente extends JDialog {
 		gbc_txtNome.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNome.gridx = 1;
 		gbc_txtNome.gridy = 0;
-		contentPanel.add(txtNome, gbc_txtNome);
+		this.add(txtNome, gbc_txtNome);
 		txtNome.setColumns(10);
-
-		JLabel RG = new JLabel("RG");
-		GridBagConstraints gbc_RG = new GridBagConstraints();
-		gbc_RG.anchor = GridBagConstraints.EAST;
-		gbc_RG.insets = new Insets(0, 0, 5, 5);
-		gbc_RG.gridx = 3;
-		gbc_RG.gridy = 0;
-		contentPanel.add(RG, gbc_RG);
-
-		txtRg = new JFormattedTextField(mascararg);
-		GridBagConstraints gbc_txtRg = new GridBagConstraints();
-		gbc_txtRg.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtRg.insets = new Insets(0, 0, 5, 5);
-		gbc_txtRg.gridx = 4;
-		gbc_txtRg.gridy = 0;
-		contentPanel.add(txtRg, gbc_txtRg);
-
-		JLabel lblCpf = new JLabel("CPF");
-		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
-		gbc_lblCpf.anchor = GridBagConstraints.EAST;
-		gbc_lblCpf.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCpf.gridx = 5;
-		gbc_lblCpf.gridy = 0;
-		contentPanel.add(lblCpf, gbc_lblCpf);
-
-		txtCpf = new JFormattedTextField(mascaracpf);
-		txtCpf.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				String cpf = txtCpf.getText();
-				Cliente p = new Cliente();
-				cpf = cpf.replace(".", "").replace("-", "");
-				if (!p.isCPF(cpf)) {
-					JOptionPane.showMessageDialog(null, "CPF INVALIDO");
-					txtCpf.grabFocus();
-					txtCpf.setText("");
-				}
+		
+		lblGenero = new JLabel("Genero");
+		GridBagConstraints gbc_lblGenero = new GridBagConstraints();
+		gbc_lblGenero.anchor = GridBagConstraints.EAST;
+		gbc_lblGenero.insets = new Insets(0, 0, 5, 5);
+		gbc_lblGenero.gridx = 3;
+		gbc_lblGenero.gridy = 0;
+		this.add(lblGenero, gbc_lblGenero);
+		
+		textGenero = new JTextField();
+		textGenero.setEditable(false);
+		textGenero.setColumns(10);
+		GridBagConstraints gbc_textGenero = new GridBagConstraints();
+		gbc_textGenero.insets = new Insets(0, 0, 5, 5);
+		gbc_textGenero.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textGenero.gridx = 4;
+		gbc_textGenero.gridy = 0;
+		this.add(textGenero, gbc_textGenero);
+		
+		buttonGenero = new JButton("");
+		buttonGenero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		GridBagConstraints gbc_txtCpf = new GridBagConstraints();
-		gbc_txtCpf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCpf.insets = new Insets(0, 0, 5, 0);
-		gbc_txtCpf.gridx = 6;
-		gbc_txtCpf.gridy = 0;
-		contentPanel.add(txtCpf, gbc_txtCpf);
+		buttonGenero.setIcon(new ImageIcon(CadCliente.class.getResource("/socadastroevendatambem/imagens/magnifier.png")));
+		GridBagConstraints gbc_buttonGenero = new GridBagConstraints();
+		gbc_buttonGenero.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonGenero.gridx = 5;
+		gbc_buttonGenero.gridy = 0;
+		this.add(buttonGenero, gbc_buttonGenero);
 
-		JLabel lblApelido = new JLabel("Apelido");
-		GridBagConstraints gbc_lblApelido = new GridBagConstraints();
-		gbc_lblApelido.anchor = GridBagConstraints.EAST;
-		gbc_lblApelido.insets = new Insets(0, 0, 5, 5);
-		gbc_lblApelido.gridx = 0;
-		gbc_lblApelido.gridy = 1;
-		contentPanel.add(lblApelido, gbc_lblApelido);
+		JLabel lblEmail = new JLabel("E-mail");
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.anchor = GridBagConstraints.EAST;
+		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmail.gridx = 0;
+		gbc_lblEmail.gridy = 1;
+		this.add(lblEmail, gbc_lblEmail);
 
-		txtApelido = new JTextField();
-		GridBagConstraints gbc_txtApelido = new GridBagConstraints();
-		gbc_txtApelido.gridwidth = 2;
-		gbc_txtApelido.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtApelido.insets = new Insets(0, 0, 5, 5);
-		gbc_txtApelido.gridx = 1;
-		gbc_txtApelido.gridy = 1;
-		contentPanel.add(txtApelido, gbc_txtApelido);
-		txtApelido.setColumns(10);
-
-		JLabel lblDataDeNascimento = new JLabel("Nascimento");
-		GridBagConstraints gbc_lblDataDeNascimento = new GridBagConstraints();
-		gbc_lblDataDeNascimento.anchor = GridBagConstraints.EAST;
-		gbc_lblDataDeNascimento.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDataDeNascimento.gridx = 3;
-		gbc_lblDataDeNascimento.gridy = 1;
-		contentPanel.add(lblDataDeNascimento, gbc_lblDataDeNascimento);
-
-		txtDataNasc = new JFormattedTextField(mascaradata);
-		GridBagConstraints gbc_txtDataNasc = new GridBagConstraints();
-		gbc_txtDataNasc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtDataNasc.insets = new Insets(0, 0, 5, 5);
-		gbc_txtDataNasc.gridx = 4;
-		gbc_txtDataNasc.gridy = 1;
-		contentPanel.add(txtDataNasc, gbc_txtDataNasc);
+		txtEmail = new JTextField();
+		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
+		gbc_txtEmail.gridwidth = 2;
+		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_txtEmail.gridx = 1;
+		gbc_txtEmail.gridy = 1;
+		this.add(txtEmail, gbc_txtEmail);
+		txtEmail.setColumns(10);
 
 		JLabel lblTelefone = new JLabel("Telefone");
 		GridBagConstraints gbc_lblTelefone = new GridBagConstraints();
@@ -224,7 +181,7 @@ public class CadCliente extends JDialog {
 		gbc_lblTelefone.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTelefone.gridx = 5;
 		gbc_lblTelefone.gridy = 1;
-		contentPanel.add(lblTelefone, gbc_lblTelefone);
+		this.add(lblTelefone, gbc_lblTelefone);
 
 		txtTelefone = new JFormattedTextField(mascarafone);
 		GridBagConstraints gbc_txtTelefone = new GridBagConstraints();
@@ -232,7 +189,7 @@ public class CadCliente extends JDialog {
 		gbc_txtTelefone.insets = new Insets(0, 0, 5, 0);
 		gbc_txtTelefone.gridx = 6;
 		gbc_txtTelefone.gridy = 1;
-		contentPanel.add(txtTelefone, gbc_txtTelefone);
+		this.add(txtTelefone, gbc_txtTelefone);
 
 		JLabel lblEndereo = new JLabel("Endere\u00E7o");
 		GridBagConstraints gbc_lblEndereo = new GridBagConstraints();
@@ -240,7 +197,7 @@ public class CadCliente extends JDialog {
 		gbc_lblEndereo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEndereo.gridx = 0;
 		gbc_lblEndereo.gridy = 2;
-		contentPanel.add(lblEndereo, gbc_lblEndereo);
+		this.add(lblEndereo, gbc_lblEndereo);
 
 		txtEndereco = new JTextField();
 		GridBagConstraints gbc_txtEndereco = new GridBagConstraints();
@@ -249,25 +206,8 @@ public class CadCliente extends JDialog {
 		gbc_txtEndereco.gridwidth = 4;
 		gbc_txtEndereco.gridx = 1;
 		gbc_txtEndereco.gridy = 2;
-		contentPanel.add(txtEndereco, gbc_txtEndereco);
+		this.add(txtEndereco, gbc_txtEndereco);
 		txtEndereco.setColumns(10);
-
-		JLabel lblN = new JLabel("N\u00B0");
-		GridBagConstraints gbc_lblN = new GridBagConstraints();
-		gbc_lblN.anchor = GridBagConstraints.EAST;
-		gbc_lblN.insets = new Insets(0, 0, 5, 5);
-		gbc_lblN.gridx = 5;
-		gbc_lblN.gridy = 2;
-		contentPanel.add(lblN, gbc_lblN);
-
-		txtNumero = new JTextField();
-		GridBagConstraints gbc_txtNumero = new GridBagConstraints();
-		gbc_txtNumero.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNumero.insets = new Insets(0, 0, 5, 0);
-		gbc_txtNumero.gridx = 6;
-		gbc_txtNumero.gridy = 2;
-		contentPanel.add(txtNumero, gbc_txtNumero);
-		txtNumero.setColumns(10);
 
 		JLabel lblBairro = new JLabel("Bairro");
 		GridBagConstraints gbc_lblBairro = new GridBagConstraints();
@@ -275,7 +215,7 @@ public class CadCliente extends JDialog {
 		gbc_lblBairro.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBairro.gridx = 0;
 		gbc_lblBairro.gridy = 3;
-		contentPanel.add(lblBairro, gbc_lblBairro);
+		this.add(lblBairro, gbc_lblBairro);
 
 		txtBairro = new JTextField();
 		GridBagConstraints gbc_txtBairro = new GridBagConstraints();
@@ -283,7 +223,7 @@ public class CadCliente extends JDialog {
 		gbc_txtBairro.insets = new Insets(0, 0, 5, 5);
 		gbc_txtBairro.gridx = 1;
 		gbc_txtBairro.gridy = 3;
-		contentPanel.add(txtBairro, gbc_txtBairro);
+		this.add(txtBairro, gbc_txtBairro);
 		txtBairro.setColumns(10);
 
 		JLabel lblCidade = new JLabel("Cidade");
@@ -292,7 +232,7 @@ public class CadCliente extends JDialog {
 		gbc_lblCidade.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCidade.gridx = 2;
 		gbc_lblCidade.gridy = 3;
-		contentPanel.add(lblCidade, gbc_lblCidade);
+		this.add(lblCidade, gbc_lblCidade);
 
 		btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -310,8 +250,7 @@ public class CadCliente extends JDialog {
 
 						}
 
-						txtCidade.setText(s.cidade.getNome() + " - "
-								+ s.cidade.getUf().getSigla());
+						txtCidade.setText(s.cidade.getNome());
 						c = s.cidade;
 
 					}
@@ -323,12 +262,12 @@ public class CadCliente extends JDialog {
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(CadCliente.class
-				.getResource("/choppeidanca/imagens/magnifier.png")));
+				.getResource("/socadastroevendatambem/imagens/magnifier.png")));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 3;
-		contentPanel.add(btnNewButton, gbc_btnNewButton);
+		this.add(btnNewButton, gbc_btnNewButton);
 
 		txtCidade = new JTextField();
 		txtCidade.setEditable(false);
@@ -337,82 +276,47 @@ public class CadCliente extends JDialog {
 		gbc_txtCidade.insets = new Insets(0, 0, 5, 5);
 		gbc_txtCidade.gridx = 4;
 		gbc_txtCidade.gridy = 3;
-		contentPanel.add(txtCidade, gbc_txtCidade);
+		this.add(txtCidade, gbc_txtCidade);
 		txtCidade.setColumns(10);
 
-		JLabel lblComplemento = new JLabel("Complemento");
-		GridBagConstraints gbc_lblComplemento = new GridBagConstraints();
-		gbc_lblComplemento.anchor = GridBagConstraints.EAST;
-		gbc_lblComplemento.insets = new Insets(0, 0, 5, 5);
-		gbc_lblComplemento.gridx = 5;
-		gbc_lblComplemento.gridy = 3;
-		contentPanel.add(lblComplemento, gbc_lblComplemento);
-
-		txtComplemento = new JTextField();
-		GridBagConstraints gbc_txtComplemento = new GridBagConstraints();
-		gbc_txtComplemento.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtComplemento.insets = new Insets(0, 0, 5, 0);
-		gbc_txtComplemento.gridx = 6;
-		gbc_txtComplemento.gridy = 3;
-		contentPanel.add(txtComplemento, gbc_txtComplemento);
-		txtComplemento.setColumns(10);
-
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
 
-				try {
-
-					Cliente p = new Cliente();
-					p.setNome(txtNome.getText());
-					// se fisica 0, se juridica 1
-					p.setEndereco(txtEndereco.getText());
-					p.setNumero(txtNumero.getText());
-					p.setBairro(txtBairro.getText());
-					p.setCidade(c);
-					p.setTelefone(txtTelefone.getText());
-
-					SimpleDateFormat formatIn = new SimpleDateFormat(
-							"dd/MM/yyyy");
-					String str = txtDataNasc.getText();
-					Date date;
-					try {
-						date = formatIn.parse(str);
-						java.sql.Date datesql = new java.sql.Date(date
-								.getTime());
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "Data Invalida");
-					}
-
-					s.clientes.add(p);
-
-					if (verificaCamposNulos() == "OK") {
-						ClienteDAO dao = new ClienteDAO();
-						if (dao.inserir(p) != "Erro") {
-
-							limparCampos();
-
-							JOptionPane.showMessageDialog(null,
-									"Pessoa Fisica cadastrada com sucesso");
-						}
-
-					}
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null,
-							"Erro ao cadastrar Pessoa fisica");
-
-				}
-
+		lblEstado = new JLabel("Estado");
+		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
+		gbc_lblEstado.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEstado.gridx = 2;
+		gbc_lblEstado.gridy = 4;
+		this.add(lblEstado, gbc_lblEstado);
+		
+		ButtonEstado = new JButton("");
+		ButtonEstado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		ButtonEstado.setIcon(new ImageIcon(CadCliente.class.getResource("/socadastroevendatambem/imagens/magnifier.png")));
+		GridBagConstraints gbc_ButtonEstado = new GridBagConstraints();
+		gbc_ButtonEstado.insets = new Insets(0, 0, 5, 5);
+		gbc_ButtonEstado.gridx = 3;
+		gbc_ButtonEstado.gridy = 4;
+		this.add(ButtonEstado, gbc_ButtonEstado);
+		
+		textEstado = new JTextField();
+		textEstado.setEditable(false);
+		textEstado.setColumns(10);
+		GridBagConstraints gbc_textEstado = new GridBagConstraints();
+		gbc_textEstado.insets = new Insets(0, 0, 5, 5);
+		gbc_textEstado.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textEstado.gridx = 4;
+		gbc_textEstado.gridy = 4;
+		this.add(textEstado, gbc_textEstado);
 		btnSalvar.setIcon(new ImageIcon(CadCliente.class
-				.getResource("/choppeidanca/imagens/Salvar.png")));
+				.getResource("/socadastroevendatambem/imagens/Salvar.png")));
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.fill = GridBagConstraints.BOTH;
 		gbc_btnSalvar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSalvar.gridx = 6;
 		gbc_btnSalvar.gridy = 4;
-		contentPanel.add(btnSalvar, gbc_btnSalvar);
+		this.add(btnSalvar, gbc_btnSalvar);
 
 		JButton btnNewButton_1 = new JButton("Novo");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -428,7 +332,7 @@ public class CadCliente extends JDialog {
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_1.gridx = 0;
 		gbc_btnNewButton_1.gridy = 6;
-		contentPanel.add(btnNewButton_1, gbc_btnNewButton_1);
+		this.add(btnNewButton_1, gbc_btnNewButton_1);
 
 		JPanel buttonPane = new JPanel();
 		GridBagConstraints gbc_buttonPane = new GridBagConstraints();
@@ -436,7 +340,7 @@ public class CadCliente extends JDialog {
 		gbc_buttonPane.gridwidth = 6;
 		gbc_buttonPane.gridx = 1;
 		gbc_buttonPane.gridy = 6;
-		contentPanel.add(buttonPane, gbc_buttonPane);
+		this.add(buttonPane, gbc_buttonPane);
 		GridBagLayout gbl_buttonPane = new GridBagLayout();
 		gbl_buttonPane.columnWidths = new int[] { 135, 89, 291, 61, 63, 75, 0 };
 		gbl_buttonPane.rowHeights = new int[] { 23, 0 };
@@ -466,26 +370,15 @@ public class CadCliente extends JDialog {
 				
 							txtNome.setText(p.getNome());
 							txtEndereco.setText(p.getEndereco());
-							txtNumero.setText(p.getNumero());
-							txtBairro.setText(p.getBairro());
 							txtCidade.setText(p.getCidade().getNome());
-							txtTelefone.setText(p.getTelefone());
 							c = s.p.getCidade();
 
 							String nome = txtNome.getText();
 							String endereco = txtEndereco.getText();
-							String bairro = txtBairro.getText();
 							String cidade = txtCidade.getText();
 							String telefone = txtTelefone.getText();
-							String datanasc = txtDataNasc.getText();
-							String cpf = txtCpf.getText();
-							String rg = txtRg.getText();
 
-							if (!nome.equals("") || !endereco.equals("")
-									|| !bairro.equals("") || !cidade.equals("")
-									|| !telefone.equals("")
-									|| !datanasc.equals("") || !cpf.equals("")
-									|| !rg.equals("")) {
+							if (!nome.equals("") || !endereco.equals("")) {
 
 								btnSalvar.setEnabled(false);
 								btnEditar.setEnabled(true);
@@ -517,11 +410,7 @@ public class CadCliente extends JDialog {
 				try {
 					p.setNome(txtNome.getText());
 					p.setEndereco(txtEndereco.getText());
-					p.setNumero(txtNumero.getText());
-					p.setBairro(txtBairro.getText());
 					p.setCidade(c);
-					p.setTelefone(txtTelefone.getText());
-
 
 					if (verificaCamposNulos() == "OK") {
 						ClienteDAO dao = new ClienteDAO();
@@ -585,7 +474,7 @@ public class CadCliente extends JDialog {
 			}
 		});
 		btnExcluir.setIcon(new ImageIcon(CadCliente.class
-				.getResource("/choppeidanca/imagens/table_row_delete.png")));
+				.getResource("/socadastroevendatambem/imagens/table_row_delete.png")));
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
 		gbc_btnExcluir.fill = GridBagConstraints.BOTH;
 		gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);
@@ -596,11 +485,11 @@ public class CadCliente extends JDialog {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CadCliente.this.dispose();
+				CadCliente.this.telaAba.getTabbedPane().remove(CadCliente.);
 			}
 		});
 		btnCancelar.setIcon(new ImageIcon(CadCliente.class
-				.getResource("/choppeidanca/imagens/cancel.png")));
+				.getResource("/socadastroevendatambem/imagens/cancel.png")));
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.fill = GridBagConstraints.BOTH;
 		gbc_btnCancelar.gridx = 5;
@@ -610,16 +499,10 @@ public class CadCliente extends JDialog {
 	}
 
 	protected void limparCampos() {
-		txtApelido.setText("");
-		txtBairro.setText("");
+		txtEmail.setText("");
 		txtCidade.setText("");
-		txtComplemento.setText("");
-		txtCpf.setText("");
-		txtDataNasc.setText("");
 		txtEndereco.setText("");
 		txtNome.setText("");
-		txtNumero.setText("");
-		txtRg.setText("");
 		txtTelefone.setText("");
 
 	}
