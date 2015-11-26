@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import socadastroevendatambem.dialogs.CadCliente;
+
 public class TelaCadastroCliente extends MolduraAbstrata {
 
 	public TelaCadastroCliente() {
@@ -12,7 +14,7 @@ public class TelaCadastroCliente extends MolduraAbstrata {
 
 	@Override
 	protected void configuraMiolo() {
-		super.add(new MioloCadastroCliente(), BorderLayout.CENTER);
+		super.add(new TelaCadastroCliente(), BorderLayout.CENTER);
 	}
 
 }

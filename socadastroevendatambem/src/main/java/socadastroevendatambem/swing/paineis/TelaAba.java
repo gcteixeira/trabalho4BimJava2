@@ -28,8 +28,8 @@ public class TelaAba extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	 private static int maxW = 0;
-	    private static int maxH = 0;
+	private static int maxW = 0;
+	private static int maxH = 0;
 
 	/**
 	 * Launch the application.
@@ -53,19 +53,25 @@ public class TelaAba extends JFrame {
 	public TelaAba() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 300);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnTeste = new JMenu("Cadastro");
 		menuBar.add(mnTeste);
-		
+
 		JMenuItem mntmCliente = new JMenuItem("Cliente");
+		mntmCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				adicionaUm();
+			}
+		});
 		mnTeste.add(mntmCliente);
-		
+
 		JMenuItem mntmTeste_1 = new JMenuItem("teste2");
 		menuBar.add(mntmTeste_1);
-		
+
 		JMenuItem mntmTeste = new JMenuItem("Teste");
 		menuBar.add(mntmTeste);
 		contentPane = new JPanel();
@@ -97,7 +103,7 @@ public class TelaAba extends JFrame {
 				adicionaDois();
 			}
 		});
-		
+
 		final JButton btnNewButton_TesteMoroto = new JButton("Teste Botao");
 		GridBagConstraints gbc_btnNewButton_TesteMoroto = new GridBagConstraints();
 		gbc_btnNewButton_TesteMoroto.insets = new Insets(0, 0, 5, 5);
@@ -121,39 +127,31 @@ public class TelaAba extends JFrame {
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
 		gbc_tabbedPane.gridy = 1;
-		
+
 		tabbedPane.addChangeListener(new ChangeListener() {
 
-	            @Override
-	            public void stateChanged(ChangeEvent e) {
-	            	 Component mCompo=tabbedPane.getSelectedComponent();
-	            	 if(mCompo!=null){
-	                 tabbedPane.setPreferredSize(mCompo.getPreferredSize());
-	            	 }
-	                 TelaAba.this.pack();
-	            }
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				Component mCompo = tabbedPane.getSelectedComponent();
+				if (mCompo != null) {
+					tabbedPane.setPreferredSize(mCompo.getPreferredSize());
+				}
+				TelaAba.this.pack();
+			}
 
-	        });
+		});
 
-		
-		
 		contentPane.add(tabbedPane, gbc_tabbedPane);
 	}
 
 	protected void adicionaUm() {
 		CadCliente cadCliente = new CadCliente(this);
-		tabbedPane.addTab("Cliente", cadCliente);
-		tabbedPane.setSize(cadCliente.getSize());
+				tabbedPane.addTab("Cliente", cadCliente);
+				tabbedPane.setSize(cadCliente.getSize());
+				mostraUltima();
 
-	//public void actionPerformed(ActionEvent e) {
-
-//		CadCliente cl = new CadCliente();
-//		cl.setVisible(true);
-		mostraUltima();
-''
 	}
-	
-	
+
 	private String ABA_DOIS = "Jessica";
 
 	private String ABA_TRES = "TRES";
@@ -178,13 +176,14 @@ public class TelaAba extends JFrame {
 	private void mostraUltima() {
 		tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
 	}
+
 	public JTabbedPane getTabbedPane() {
 		return tabbedPane;
 	}
 
 	public void setCloseAction(ActionListener action) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
