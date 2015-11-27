@@ -196,23 +196,7 @@ public class FrmMovimento extends JDialog {
 		tblProdutos.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
 
-				int linha = tblProdutos.getSelectedRow();
-				if (linha != -1) {
-					System.out.println("Linha " + linha);
-
-					Object value = tblProdutos.getValueAt(1, 4);
-
-					if (value != value2) {
-						System.err.println(value + " " + value2);
-
-						atualizaValores(linha, value);
-						value2 = value;
-
-					} else {
-						return;
-					}
-				}
-			
+	
 
 			}
 		});
@@ -305,8 +289,8 @@ public class FrmMovimento extends JDialog {
 					String acrescimo = txtAcrescimo.getText();
 					String valor_lqd = txtTotal.getText();
 					valor_btr = valor_btr.replace(",", ".");
-					desconto = desconto.replace(",", ".");
-					acrescimo = acrescimo.replace(",", ".");
+
+
 					valor_lqd = valor_lqd.replace(",", ".");
 
 					mp.setValorund(Double.parseDouble(valor_btr));
@@ -360,28 +344,6 @@ public class FrmMovimento extends JDialog {
 
 
 
-
-	public void atualizaValores(int rowIndex, Object value) {
-
-
-		String str = txtSubtotal.getText();
-
-
-	}
-
-
-
-	private double calculaParcela(int vezes) {
-
-		double t = 0;
-
-		String t2 = txtTotal.getText();
-		t2 = t2.replace(".", "").replace(",", ".");
-
-		t = Double.parseDouble(t2);
-
-		return t / vezes;
-	}
 
 		}
 	}
