@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import socadastroevendatambem.dialogs.CadCliente;
 import socadastroevendatambem.dialogs.CadProduto;
+import socadastroevendatambem.dialogs.CadUsuario;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -77,6 +78,16 @@ public class TelaAba extends JFrame {
 			}
 		});
 		mnTeste.add(mntmProduto);
+
+		JMenuItem mntmUsuario = new JMenuItem("Usuario");
+		mntmProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				adicionaUsuario();
+			}
+
+		
+		});
+		mnTeste.add(mntmUsuario);
 
 		JMenuItem mntmTeste_1 = new JMenuItem("teste2");
 		menuBar.add(mntmTeste_1);
@@ -165,6 +176,14 @@ public class TelaAba extends JFrame {
 		tabbedPane.addTab("Produto", cadProduto);
 		tabbedPane.setSize(cadProduto.getSize());
 		mostraUltima();
+	}
+	
+	private void adicionaUsuario() {
+		CadUsuario cadUsuario = new CadUsuario(this);
+		tabbedPane.addTab("Usuario", cadUsuario);
+		tabbedPane.setSize(cadUsuario.getSize());
+		mostraUltima();
+		
 	}
 
 	private String ABA_DOIS = "Jessica";
