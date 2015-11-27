@@ -19,7 +19,6 @@ import javax.swing.text.MaskFormatter;
 
 import socadastroevendatambem.modelo.Cidade;
 import socadastroevendatambem.modelo.Cliente;
-import socadastroevendatambem.dialogs.CadCliente;
 import socadastroevendatambem.modelosJtable.Modelo_Cliente;
 import socadastroevendatambem.persistencia.ClienteDAO;
 import socadastroevendatambem.swing.paineis.TelaAba;
@@ -71,9 +70,6 @@ public class CadCliente extends JPanel {
 
 	public CadCliente(TelaAba telaAba) {
 		this.telaAba = telaAba;
-//		setTitle("Só Cadastro - Cadastro de Cliente");
-
-		// carregaDados();
 
 		MaskFormatter mascaracpf = null;
 		MaskFormatter mascararg = null;
@@ -93,10 +89,8 @@ public class CadCliente extends JPanel {
 			e.printStackTrace();
 		}
 
-//		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//		setModal(true);
+
 		setPreferredSize(new Dimension(1000, 400));
-//		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		GridBagLayout gbl_this = new GridBagLayout();
 		gbl_this.columnWidths = new int[] { 45, 164, 35, 0, 120, 55,
 				116, 0 };

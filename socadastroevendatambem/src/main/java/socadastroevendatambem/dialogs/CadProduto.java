@@ -1,42 +1,31 @@
 package socadastroevendatambem.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.JTextField;
-
-import java.awt.Insets;
-
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.ImageIcon;
-import javax.swing.ButtonGroup;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import socadastroevendatambem.modelo.Categoria;
 import socadastroevendatambem.modelo.Produto;
 import socadastroevendatambem.modelosJtable.Modelo_Produto;
 import socadastroevendatambem.persistencia.ProdutoDAO;
+import socadastroevendatambem.swing.paineis.TelaAba;
 import socadastroevendatambem.utils.Singleton;
+import javax.swing.JRadioButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-public class CadProduto extends JDialog {
+public class CadProduto extends JPanel {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNome;
@@ -52,7 +41,6 @@ public class CadProduto extends JDialog {
 	public static void main(String[] args) {
 		try {
 			CadProduto dialog = new CadProduto();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,33 +53,27 @@ public class CadProduto extends JDialog {
 
 	Modelo_Produto mp = new Modelo_Produto();
 
-	Categoria c = new Categoria();
 	Produto p = new Produto();
 	Singleton s = Singleton.getInstance();
 
-	private ImageIcon imgAlert = new ImageIcon(getClass().getResource(
-			"/choppeidanca/imagens/error.png"));
+	private ImageIcon imgAlert = new ImageIcon(getClass().getResource("/socadastroevendatambem/imagens/error.png"));
 	private JTextField txtQuantidade;
-	private JRadioButton rbInativo;
-	private JRadioButton rbAtivo;
+	private TelaAba telaAba;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
-	public CadProduto() {
+	public CadProduto(TelaAba telaAba) {
+		this.telaAba = telaAba;
 
-		setTitle("Choppeidan\u00E7a - Cadastro de Produto");
-		setModal(true);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 836, 320);
-		getContentPane().setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(1000, 400));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[] { 0, 63, 0, 0, 64, 60, 0, 0 };
-		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0,
-				0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0,
-				0.0, Double.MIN_VALUE };
-		contentPanel.setLayout(gbl_contentPanel);
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[] { 0, 63, 0, 0, 64, 60, 0, 0 };
+		gbl_this.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_this.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_this.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		contentPanel.setLayout(gbl_this);
 
 		JLabel lblNome = new JLabel("Nome");
 		GridBagConstraints gbc_lblNome = new GridBagConstraints();
@@ -120,16 +102,6 @@ public class CadProduto extends JDialog {
 					Produto p = new Produto();
 
 					p.setDescricao(txtNome.getText());
-					p.setCategoria(c);
-
-					if (rbAtivo.isSelected()) {
-						p.setStatus(true);
-						rbAtivo.setSelected(false);
-					}
-					if (rbInativo.isSelected()) {
-						p.setStatus(false);
-						rbInativo.setSelected(false);
-					}
 
 					p.setQtdEstoque(Integer.parseInt(txtQuantidade.getText()));
 
@@ -139,8 +111,7 @@ public class CadProduto extends JDialog {
 
 					limparCampos();
 
-					JOptionPane.showMessageDialog(null,
-							"Cadastrado com Sucesso");
+					JOptionPane.showMessageDialog(null, "Cadastrado com Sucesso");
 
 				} catch (Exception ex) {
 					// TODO: handle exception
@@ -163,88 +134,6 @@ public class CadProduto extends JDialog {
 		gbc_txtQuantidade.gridy = 0;
 		contentPanel.add(txtQuantidade, gbc_txtQuantidade);
 		txtQuantidade.setColumns(10);
-
-		JLabel lblCategoria = new JLabel("Categoria");
-		GridBagConstraints gbc_lblCategoria = new GridBagConstraints();
-		gbc_lblCategoria.anchor = GridBagConstraints.EAST;
-		gbc_lblCategoria.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCategoria.gridx = 0;
-		gbc_lblCategoria.gridy = 1;
-		contentPanel.add(lblCategoria, gbc_lblCategoria);
-
-		JButton btnPesquisaCat = new JButton("");
-		btnPesquisaCat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Runnable r = new Runnable() {
-
-					@Override
-					public void run() {
-						s.statusBotao = true;
-						BuscaCategoria bc = new BuscaCategoria();
-						bc.setVisible(true);
-
-						while (bc.isShowing()) {
-
-						}
-
-						c = s.cat;
-						String categoria = c.getTipo();
-						if (!categoria.equals("")) {
-							txtCategoria.setText(c.getTipo());
-						}
-
-					}
-				};
-
-				Thread t = new Thread(r);
-				t.start();
-
-			}
-		});
-		btnPesquisaCat.setIcon(new ImageIcon(CadProduto.class
-				.getResource("/choppeidanca/imagens/magnifier.png")));
-		GridBagConstraints gbc_btnPesquisaCat = new GridBagConstraints();
-		gbc_btnPesquisaCat.fill = GridBagConstraints.BOTH;
-		gbc_btnPesquisaCat.insets = new Insets(0, 0, 5, 5);
-		gbc_btnPesquisaCat.gridx = 1;
-		gbc_btnPesquisaCat.gridy = 1;
-		contentPanel.add(btnPesquisaCat, gbc_btnPesquisaCat);
-
-		txtCategoria = new JTextField();
-		txtCategoria.setEditable(false);
-		GridBagConstraints gbc_txtCategoria = new GridBagConstraints();
-		gbc_txtCategoria.gridwidth = 2;
-		gbc_txtCategoria.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCategoria.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCategoria.gridx = 2;
-		gbc_txtCategoria.gridy = 1;
-		contentPanel.add(txtCategoria, gbc_txtCategoria);
-		txtCategoria.setColumns(10);
-
-		JLabel lblStatus = new JLabel("Status");
-		GridBagConstraints gbc_lblStatus = new GridBagConstraints();
-		gbc_lblStatus.anchor = GridBagConstraints.EAST;
-		gbc_lblStatus.insets = new Insets(0, 0, 5, 5);
-		gbc_lblStatus.gridx = 3;
-		gbc_lblStatus.gridy = 1;
-		contentPanel.add(lblStatus, gbc_lblStatus);
-
-		rbAtivo = new JRadioButton("Ativo");
-		buttonGroup.add(rbAtivo);
-		GridBagConstraints gbc_rbAtivo = new GridBagConstraints();
-		gbc_rbAtivo.insets = new Insets(0, 0, 5, 5);
-		gbc_rbAtivo.gridx = 4;
-		gbc_rbAtivo.gridy = 1;
-		contentPanel.add(rbAtivo, gbc_rbAtivo);
-
-		rbInativo = new JRadioButton("Inativo");
-		buttonGroup.add(rbInativo);
-		GridBagConstraints gbc_rbInativo = new GridBagConstraints();
-		gbc_rbInativo.insets = new Insets(0, 0, 5, 5);
-		gbc_rbInativo.gridx = 5;
-		gbc_rbInativo.gridy = 1;
-		contentPanel.add(rbInativo, gbc_rbInativo);
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSalvar.insets = new Insets(0, 0, 5, 0);
@@ -287,23 +176,12 @@ public class CadProduto extends JDialog {
 						}
 
 						txtNome.setText(s.produto.getDescricao());
-						txtCategoria
-								.setText(s.produto.getCategoria().getTipo());
-						txtQuantidade.setText(Integer.toString(s.produto
-								.getQtdEstoque()));
+
+						txtQuantidade.setText(Integer.toString(s.produto.getQtdEstoque()));
 
 						p = s.produto;
-						c = s.produto.getCategoria();
-
 						String nome = txtNome.getText();
-						String categoria = txtCategoria.getText();
 						int estoque = Integer.parseInt(txtQuantidade.getText());
-						if (!nome.equals("") || !categoria.equals("")
-								|| estoque != 0) {
-							btnSalvar.setEnabled(false);
-							btnEditar.setEnabled(true);
-							btnExcluir.setEnabled(true);
-						}
 
 					}
 				};
@@ -329,20 +207,17 @@ public class CadProduto extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				int dialogButton = JOptionPane.YES_NO_OPTION;
-				int result = JOptionPane.showConfirmDialog(null,
-						"Deseja excluir o produto " + p.getDescricao() + "?",
+				int result = JOptionPane.showConfirmDialog(null, "Deseja excluir o produto " + p.getDescricao() + "?",
 						"Deseja realizar essa opera��o?", dialogButton);
 
 				if (result == JOptionPane.YES_OPTION) {
 
 					ProdutoDAO dao = new ProdutoDAO();
 					if (dao.deletar(p.getId()) == "NO") {
-						JOptionPane.showMessageDialog(null,
-								"N�o foi possivel excluir esse produto",
+						JOptionPane.showMessageDialog(null, "N�o foi possivel excluir esse produto",
 								"Problemas ao Excluir", 1, imgAlert);
 					} else {
-						JOptionPane.showMessageDialog(null,
-								"Exclus�o feita com sucesso");
+						JOptionPane.showMessageDialog(null, "Exclus�o feita com sucesso");
 						limparCampos();
 
 						btnSalvar.setEnabled(true);
@@ -367,16 +242,7 @@ public class CadProduto extends JDialog {
 				try {
 
 					p.setDescricao(txtNome.getText());
-					p.setCategoria(c);
 
-					if (rbAtivo.isSelected()) {
-						p.setStatus(true);
-						rbAtivo.setSelected(false);
-					}
-					if (rbInativo.isSelected()) {
-						p.setStatus(false);
-						rbInativo.setSelected(false);
-					}
 					p.setQtdEstoque(Integer.parseInt(txtQuantidade.getText()));
 
 					ProdutoDAO dao = new ProdutoDAO();
@@ -384,8 +250,7 @@ public class CadProduto extends JDialog {
 
 					mp.fireTableDataChanged();
 
-					JOptionPane.showMessageDialog(null,
-							"Alteração Feita com Sucesso");
+					JOptionPane.showMessageDialog(null, "Altera��o Feita com Sucesso");
 
 					limparCampos();
 
@@ -408,10 +273,152 @@ public class CadProduto extends JDialog {
 		contentPanel.add(cancelButton, gbc_cancelButton);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadProduto.this.dispose();
+			//	CadProduto.this.dispose();
 			}
 		});
 
+	}
+
+	public CadProduto() {
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		add(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 63, 0, 0, 64, 60, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		JLabel label_1 = new JLabel("Nome");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.anchor = GridBagConstraints.EAST;
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 0;
+		gbc_label_1.gridy = 0;
+		panel.add(label_1, gbc_label_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.anchor = GridBagConstraints.NORTH;
+		gbc_textField_1.gridwidth = 4;
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.gridx = 1;
+		gbc_textField_1.gridy = 0;
+		panel.add(textField_1, gbc_textField_1);
+		
+		JLabel label_2 = new JLabel("Quantidade");
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.anchor = GridBagConstraints.EAST;
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 5;
+		gbc_label_2.gridy = 0;
+		panel.add(label_2, gbc_label_2);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_2.gridx = 6;
+		gbc_textField_2.gridy = 0;
+		panel.add(textField_2, gbc_textField_2);
+		
+		JLabel label_3 = new JLabel("Categoria");
+		GridBagConstraints gbc_label_3 = new GridBagConstraints();
+		gbc_label_3.anchor = GridBagConstraints.EAST;
+		gbc_label_3.insets = new Insets(0, 0, 5, 5);
+		gbc_label_3.gridx = 0;
+		gbc_label_3.gridy = 1;
+		panel.add(label_3, gbc_label_3);
+		
+		JButton button = new JButton("");
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.fill = GridBagConstraints.BOTH;
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 1;
+		gbc_button.gridy = 1;
+		panel.add(button, gbc_button);
+		
+		textField_3 = new JTextField();
+		textField_3.setEditable(false);
+		textField_3.setColumns(10);
+		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
+		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_3.gridwidth = 2;
+		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_3.gridx = 2;
+		gbc_textField_3.gridy = 1;
+		panel.add(textField_3, gbc_textField_3);
+		
+		JLabel label_4 = new JLabel("Status");
+		GridBagConstraints gbc_label_4 = new GridBagConstraints();
+		gbc_label_4.anchor = GridBagConstraints.EAST;
+		gbc_label_4.insets = new Insets(0, 0, 5, 5);
+		gbc_label_4.gridx = 3;
+		gbc_label_4.gridy = 1;
+		panel.add(label_4, gbc_label_4);
+		
+		JRadioButton radioButton = new JRadioButton("Ativo");
+		GridBagConstraints gbc_radioButton = new GridBagConstraints();
+		gbc_radioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_radioButton.gridx = 4;
+		gbc_radioButton.gridy = 1;
+		panel.add(radioButton, gbc_radioButton);
+		
+		JRadioButton radioButton_1 = new JRadioButton("Inativo");
+		GridBagConstraints gbc_radioButton_1 = new GridBagConstraints();
+		gbc_radioButton_1.insets = new Insets(0, 0, 5, 5);
+		gbc_radioButton_1.gridx = 5;
+		gbc_radioButton_1.gridy = 1;
+		panel.add(radioButton_1, gbc_radioButton_1);
+		
+		JButton button_1 = new JButton("Salvar");
+		GridBagConstraints gbc_button_1 = new GridBagConstraints();
+		gbc_button_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_button_1.insets = new Insets(0, 0, 5, 0);
+		gbc_button_1.gridx = 6;
+		gbc_button_1.gridy = 1;
+		panel.add(button_1, gbc_button_1);
+		
+		JButton button_2 = new JButton("Novo");
+		GridBagConstraints gbc_button_2 = new GridBagConstraints();
+		gbc_button_2.insets = new Insets(0, 0, 0, 5);
+		gbc_button_2.gridx = 0;
+		gbc_button_2.gridy = 5;
+		panel.add(button_2, gbc_button_2);
+		
+		JButton button_3 = new JButton("Listar");
+		GridBagConstraints gbc_button_3 = new GridBagConstraints();
+		gbc_button_3.insets = new Insets(0, 0, 0, 5);
+		gbc_button_3.gridx = 3;
+		gbc_button_3.gridy = 5;
+		panel.add(button_3, gbc_button_3);
+		
+		JButton button_4 = new JButton("Excluir");
+		button_4.setEnabled(false);
+		GridBagConstraints gbc_button_4 = new GridBagConstraints();
+		gbc_button_4.insets = new Insets(0, 0, 0, 5);
+		gbc_button_4.gridx = 4;
+		gbc_button_4.gridy = 5;
+		panel.add(button_4, gbc_button_4);
+		
+		JButton button_5 = new JButton("Editar");
+		button_5.setEnabled(false);
+		GridBagConstraints gbc_button_5 = new GridBagConstraints();
+		gbc_button_5.insets = new Insets(0, 0, 0, 5);
+		gbc_button_5.gridx = 5;
+		gbc_button_5.gridy = 5;
+		panel.add(button_5, gbc_button_5);
+		
+		JButton button_6 = new JButton("Cancelar");
+		GridBagConstraints gbc_button_6 = new GridBagConstraints();
+		gbc_button_6.gridx = 6;
+		gbc_button_6.gridy = 5;
+		panel.add(button_6, gbc_button_6);
+		// TODO Auto-generated constructor stub
 	}
 
 	private void limparCampos() {

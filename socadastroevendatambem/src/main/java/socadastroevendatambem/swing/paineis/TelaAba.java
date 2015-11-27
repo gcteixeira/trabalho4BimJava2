@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import socadastroevendatambem.dialogs.CadCliente;
+import socadastroevendatambem.dialogs.CadProduto;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -63,11 +65,18 @@ public class TelaAba extends JFrame {
 		JMenuItem mntmCliente = new JMenuItem("Cliente");
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				adicionaUm();
 			}
 		});
 		mnTeste.add(mntmCliente);
+
+		JMenuItem mntmProduto = new JMenuItem("Produto");
+		mntmProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				adicionaProduto();
+			}
+		});
+		mnTeste.add(mntmProduto);
 
 		JMenuItem mntmTeste_1 = new JMenuItem("teste2");
 		menuBar.add(mntmTeste_1);
@@ -146,10 +155,16 @@ public class TelaAba extends JFrame {
 
 	protected void adicionaUm() {
 		CadCliente cadCliente = new CadCliente(this);
-				tabbedPane.addTab("Cliente", cadCliente);
-				tabbedPane.setSize(cadCliente.getSize());
-				mostraUltima();
+		tabbedPane.addTab("Cliente", cadCliente);
+		tabbedPane.setSize(cadCliente.getSize());
+		mostraUltima();
+	}
 
+	protected void adicionaProduto() {
+		CadProduto cadProduto = new CadProduto(this);
+		tabbedPane.addTab("Produto", cadProduto);
+		tabbedPane.setSize(cadProduto.getSize());
+		mostraUltima();
 	}
 
 	private String ABA_DOIS = "Jessica";
