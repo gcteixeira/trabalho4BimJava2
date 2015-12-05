@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
-import socadastroevendatambem.modelo.Movimento;
+import socadastroevendatambem.model.Movimento;
 
 
 //Essa Classe interna serve para Dizer quando a celula foi alterada e o seu respectivo valor  

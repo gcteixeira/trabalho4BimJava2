@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Estado;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Estado;
 import socadastroevendatambem.persistencia.CidadeDAO;
 import socadastroevendatambem.persistencia.EstadoDAO;
 

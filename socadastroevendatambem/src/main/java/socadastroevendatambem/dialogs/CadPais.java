@@ -24,7 +24,7 @@ import java.awt.Insets;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import socadastroevendatambem.modelo.Pais;
+import socadastroevendatambem.model.Pais;
 import socadastroevendatambem.modelosJtable.Modelo_Pais;
 import socadastroevendatambem.persistencia.PaisDAO;
 import socadastroevendatambem.utils.Singleton;

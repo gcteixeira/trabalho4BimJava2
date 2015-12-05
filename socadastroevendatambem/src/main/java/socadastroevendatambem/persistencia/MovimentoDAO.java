@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Movimento;
-import socadastroevendatambem.modelo.Cliente;
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Cliente;
+import socadastroevendatambem.model.Movimento;
+import socadastroevendatambem.model.Produto;
 
 public class MovimentoDAO {
 	Connection con = ConexaoSing.con;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Produto;
 import socadastroevendatambem.persistencia.ProdutoDAO;
 
 

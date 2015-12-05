@@ -23,9 +23,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import socadastroevendatambem.modelo.Pais;
-import socadastroevendatambem.modelo.Uf;
-import socadastroevendatambem.modelosJtable.Modelo_Uf;
+import socadastroevendatambem.model.Pais;
+import socadastroevendatambem.model.Uf;
+import socadastroevendatambem.modelsJtable.Modelo_Uf;
 import socadastroevendatambem.persistencia.PaisDAO;
 import socadastroevendatambem.persistencia.UfDAO;
 import socadastroevendatambem.utils.Singleton;

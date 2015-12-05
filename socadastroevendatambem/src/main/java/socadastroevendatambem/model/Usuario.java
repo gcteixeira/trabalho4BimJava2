@@ -1,4 +1,4 @@
-package socadastroevendatambem.modelo;
+package socadastroevendatambem.model;
 
 public class Usuario {
 //Id, id de cliente e senha.

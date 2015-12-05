@@ -18,8 +18,8 @@ import java.awt.GridBagConstraints;
 
 import javax.swing.JTable;
 
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Estado;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Estado;
 import socadastroevendatambem.modelosJtable.Modelo_Cidade;
 import socadastroevendatambem.persistencia.CidadeDAO;
 import socadastroevendatambem.utils.Singleton;

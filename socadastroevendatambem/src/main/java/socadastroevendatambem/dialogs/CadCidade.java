@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import socadastroevendatambem.modelo.Cidade;
+import socadastroevendatambem.model.Cidade;
 import socadastroevendatambem.modelosJtable.Modelo_Cidade;
 import socadastroevendatambem.persistencia.CidadeDAO;
 import socadastroevendatambem.utils.Singleton;

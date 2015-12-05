@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import socadastroevendatambem.modelo.Categoria;
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Categoria;
+import socadastroevendatambem.model.Produto;
 import socadastroevendatambem.modelosJtable.Modelo_Produto;
 import socadastroevendatambem.persistencia.ProdutoDAO;
 import socadastroevendatambem.utils.Singleton;

@@ -77,12 +77,23 @@ public class TelaAba extends JFrame {
 			}
 		});
 		mnTeste.add(mntmProduto);
-
-		JMenuItem mntmTeste_1 = new JMenuItem("teste2");
-		menuBar.add(mntmTeste_1);
-
-		JMenuItem mntmTeste = new JMenuItem("Teste");
-		menuBar.add(mntmTeste);
+		
+		JMenu mnVenda = new JMenu("Venda");
+		menuBar.add(mnVenda);
+		
+		JMenuItem mntmNovaVenda = new JMenuItem("Nova Venda");
+		mnVenda.add(mntmNovaVenda);
+		
+		JMenuItem menuItem_1 = new JMenuItem("Produto");
+		mnVenda.add(menuItem_1);
+		
+				final JButton btnNewButton_TesteMoroto = new JButton("Teste Botao");
+				menuBar.add(btnNewButton_TesteMoroto);
+				btnNewButton_TesteMoroto.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						tabbedPane.remove(tabbedPane.getComponent(tabbedPane.getSelectedIndex()));
+					}
+				});
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -93,49 +104,13 @@ public class TelaAba extends JFrame {
 		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		JButton btnNewButton = new JButton("Cliente");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				adicionaUm();
-			}
-		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 0;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
-
-		JButton btnNewButton_1 = new JButton("2");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				adicionaDois();
-			}
-		});
-
-		final JButton btnNewButton_TesteMoroto = new JButton("Teste Botao");
-		GridBagConstraints gbc_btnNewButton_TesteMoroto = new GridBagConstraints();
-		gbc_btnNewButton_TesteMoroto.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_TesteMoroto.gridx = 1;
-		gbc_btnNewButton_TesteMoroto.gridy = 0;
-		contentPane.add(btnNewButton_TesteMoroto, gbc_btnNewButton_TesteMoroto);
-		btnNewButton_TesteMoroto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabbedPane.remove(tabbedPane.getComponent(tabbedPane.getSelectedIndex()));
-			}
-		});
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 2;
-		gbc_btnNewButton_1.gridy = 0;
-		contentPane.add(btnNewButton_1, gbc_btnNewButton_1);
-
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.gridheight = 2;
 		gbc_tabbedPane.gridwidth = 4;
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 1;
+		gbc_tabbedPane.gridy = 0;
 
 		tabbedPane.addChangeListener(new ChangeListener() {
 
@@ -170,21 +145,6 @@ public class TelaAba extends JFrame {
 	private String ABA_DOIS = "Jessica";
 
 	private String ABA_TRES = "TRES";
-
-	protected void adicionaDois() {
-
-		for (int i = 0; i < tabbedPane.getTabCount(); i++) {
-			if (tabbedPane.getTitleAt(i).equals(ABA_DOIS)) {
-				tabbedPane.setSelectedIndex(i);
-				return;
-			}
-		}
-
-		JPanel telaDois = new JPanel();
-
-		tabbedPane.addTab(ABA_DOIS, telaDois);
-		mostraUltima();
-	}
 
 	private Map<Integer, JComponent> mapa = new HashMap<Integer, JComponent>();
 

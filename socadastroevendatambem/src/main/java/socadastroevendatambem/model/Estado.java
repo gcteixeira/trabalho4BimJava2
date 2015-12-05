@@ -1,4 +1,4 @@
-package socadastroevendatambem.modelo;
+package socadastroevendatambem.model;
 
 public enum Estado {
 	

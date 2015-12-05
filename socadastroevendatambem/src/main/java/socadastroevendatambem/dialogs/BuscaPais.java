@@ -19,7 +19,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTable;
 
 import socadastroevendatambem.utils.Singleton;
-import socadastroevendatambem.modelo.Pais;
+import socadastroevendatambem.model.Pais;
 import socadastroevendatambem.modelosJtable.Modelo_Pais;
 import socadastroevendatambem.persistencia.PaisDAO;
 

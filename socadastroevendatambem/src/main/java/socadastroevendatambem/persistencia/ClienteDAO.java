@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Cliente;
-import socadastroevendatambem.modelo.Estado;
-import socadastroevendatambem.modelo.Genero;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Cliente;
+import socadastroevendatambem.model.Estado;
+import socadastroevendatambem.model.Genero;
 
 public class ClienteDAO {
 

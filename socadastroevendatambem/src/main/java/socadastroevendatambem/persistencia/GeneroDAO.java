@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import socadastroevendatambem.modelo.Genero;
+import socadastroevendatambem.model.Genero;
 
 public class GeneroDAO {
 	Connection con = ConexaoSing.con;

@@ -1,4 +1,4 @@
-package socadastroevendatambem.modelo;
+package socadastroevendatambem.model;
 
 import java.math.BigDecimal;
 

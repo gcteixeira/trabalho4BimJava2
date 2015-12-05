@@ -8,10 +8,10 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.text.Caret;
 
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Cliente;
-import socadastroevendatambem.modelo.Estado;
-import socadastroevendatambem.modelo.Genero;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Cliente;
+import socadastroevendatambem.model.Estado;
+import socadastroevendatambem.model.Genero;
 import socadastroevendatambem.persistencia.ClienteDAO;
 import socadastroevendatambem.utils.Singleton;
 

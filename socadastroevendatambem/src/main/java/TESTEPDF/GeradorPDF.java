@@ -6,16 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-import socadastroevendatambem.modelo.Cliente;
-import socadastroevendatambem.modelo.Uf;
+import socadastroevendatambem.model.Cliente;
+import socadastroevendatambem.model.Uf;
 import socadastroevendatambem.persistencia.ClienteDAO;
 import socadastroevendatambem.persistencia.UfDAO;
 

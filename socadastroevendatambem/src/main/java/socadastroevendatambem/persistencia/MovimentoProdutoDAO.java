@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import socadastroevendatambem.modelo.Movimento;
-import socadastroevendatambem.modelo.MovimentoProduto;
+import socadastroevendatambem.model.Movimento;
+import socadastroevendatambem.model.MovimentoProduto;
 
 public class MovimentoProdutoDAO {
 

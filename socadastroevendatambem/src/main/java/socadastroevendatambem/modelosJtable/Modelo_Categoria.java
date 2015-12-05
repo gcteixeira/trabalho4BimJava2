@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import socadastroevendatambem.modelo.Categoria;
+import socadastroevendatambem.model.Categoria;
 import socadastroevendatambem.persistencia.CategoriaDAO;
 
 public class Modelo_Categoria extends AbstractTableModel{

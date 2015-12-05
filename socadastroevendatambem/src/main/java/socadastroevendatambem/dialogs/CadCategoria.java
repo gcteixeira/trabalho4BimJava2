@@ -25,7 +25,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import socadastroevendatambem.modelo.Categoria;
+import socadastroevendatambem.model.Categoria;
 import socadastroevendatambem.modelosJtable.Modelo_Categoria;
 import socadastroevendatambem.persistencia.CategoriaDAO;
 import socadastroevendatambem.utils.Singleton;

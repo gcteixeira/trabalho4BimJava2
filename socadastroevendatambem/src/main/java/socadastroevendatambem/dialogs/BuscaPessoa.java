@@ -21,9 +21,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 
-//import TESTEPDF.Relatorio;
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Cliente;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Cliente;
 import socadastroevendatambem.modelosJtable.Modelo_Cliente;
 import socadastroevendatambem.persistencia.ClienteDAO;
 import socadastroevendatambem.utils.Singleton;

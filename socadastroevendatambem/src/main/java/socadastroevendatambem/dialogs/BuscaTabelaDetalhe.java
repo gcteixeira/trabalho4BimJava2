@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Produto;
 import socadastroevendatambem.utils.EditarCelulaTabela;
 import socadastroevendatambem.utils.Singleton;
 

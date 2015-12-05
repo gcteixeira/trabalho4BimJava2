@@ -3,12 +3,12 @@ package socadastroevendatambem.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import socadastroevendatambem.modelo.Categoria;
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Cliente;
-import socadastroevendatambem.modelo.Estado;
-import socadastroevendatambem.modelo.Pais;
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Categoria;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Cliente;
+import socadastroevendatambem.model.Estado;
+import socadastroevendatambem.model.Pais;
+import socadastroevendatambem.model.Produto;
 
 public class Singleton {
 

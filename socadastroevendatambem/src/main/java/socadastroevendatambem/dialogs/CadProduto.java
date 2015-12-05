@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Produto;
 import socadastroevendatambem.modelosJtable.Modelo_Produto;
 import socadastroevendatambem.persistencia.ProdutoDAO;
 import socadastroevendatambem.swing.paineis.TelaAba;
@@ -52,7 +52,8 @@ public class CadProduto extends JPanel {
 	 */
 
 	Modelo_Produto mp = new Modelo_Produto();
-
+	private ImageIcon imgAlert1 = new ImageIcon(getClass().getResource(
+			"/socadastroevendatambem/imagens/error.png"));
 	Produto p = new Produto();
 	Singleton s = Singleton.getInstance();
 
@@ -215,7 +216,7 @@ public class CadProduto extends JPanel {
 					ProdutoDAO dao = new ProdutoDAO();
 					if (dao.deletar(p.getId()) == "NO") {
 						JOptionPane.showMessageDialog(null, "N�o foi possivel excluir esse produto",
-								"Problemas ao Excluir", 1, imgAlert);
+								"Problemas ao Excluir", 1, imgAlert1);
 					} else {
 						JOptionPane.showMessageDialog(null, "Exclus�o feita com sucesso");
 						limparCampos();

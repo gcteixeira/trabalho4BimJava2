@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import socadastroevendatambem.modelo.Pais;
+import socadastroevendatambem.model.Pais;
 import socadastroevendatambem.persistencia.PaisDAO;
 
 

@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import socadastroevendatambem.modelo.Estado;
-import socadastroevendatambem.modelo.Pais;
+import socadastroevendatambem.model.Estado;
+import socadastroevendatambem.model.Pais;
 import socadastroevendatambem.modelosJtable.Modelo_Estado;
 import socadastroevendatambem.utils.Singleton;
 

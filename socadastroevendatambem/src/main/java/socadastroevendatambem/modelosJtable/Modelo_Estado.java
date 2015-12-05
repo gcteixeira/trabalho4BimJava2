@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import socadastroevendatambem.modelo.Estado;
-import socadastroevendatambem.modelo.Pais;
+import socadastroevendatambem.model.Estado;
+import socadastroevendatambem.model.Pais;
 
 public class Modelo_Estado extends AbstractTableModel {
 

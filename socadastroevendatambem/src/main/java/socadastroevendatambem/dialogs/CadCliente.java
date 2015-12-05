@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import socadastroevendatambem.modelo.Cidade;
-import socadastroevendatambem.modelo.Cliente;
+import socadastroevendatambem.model.Cidade;
+import socadastroevendatambem.model.Cliente;
 import socadastroevendatambem.modelosJtable.Modelo_Cliente;
 import socadastroevendatambem.persistencia.ClienteDAO;
 import socadastroevendatambem.swing.paineis.TelaAba;

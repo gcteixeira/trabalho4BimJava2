@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
-import socadastroevendatambem.modelo.Categoria;
-import socadastroevendatambem.modelo.Produto;
+import socadastroevendatambem.model.Categoria;
+import socadastroevendatambem.model.Produto;
 
 
 
