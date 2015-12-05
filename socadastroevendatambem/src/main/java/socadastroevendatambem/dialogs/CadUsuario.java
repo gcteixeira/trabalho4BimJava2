@@ -18,19 +18,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import socadastroevendatambem.model.Produto;
+import socadastroevendatambem.modelo.Produto;
 import socadastroevendatambem.modelosJtable.Modelo_Produto;
 import socadastroevendatambem.persistencia.ProdutoDAO;
 import socadastroevendatambem.swing.paineis.TelaAba;
 import socadastroevendatambem.utils.Singleton;
 import javax.swing.JRadioButton;
 
-public class CadProduto extends JPanel {
+public class CadUsuario extends JPanel {
 
-	//private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNome;
-	private JTextField txtCategoria;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField txtSenha;
+	private JTextField txtCliente;
 	private JButton btnSalvar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -52,8 +52,7 @@ public class CadProduto extends JPanel {
 	 */
 
 	Modelo_Produto mp = new Modelo_Produto();
-	private ImageIcon imgAlert1 = new ImageIcon(getClass().getResource(
-			"/socadastroevendatambem/imagens/error.png"));
+
 	Produto p = new Produto();
 	Singleton s = Singleton.getInstance();
 
@@ -62,8 +61,9 @@ public class CadProduto extends JPanel {
 	private TelaAba telaAba;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JTextField textField;
 
-	public CadProduto(TelaAba telaAba) {
+	public CadUsuario(TelaAba telaAba) {
 		this.telaAba = telaAba;
 
 		setPreferredSize(new Dimension(1000, 400));
@@ -215,7 +215,7 @@ public class CadProduto extends JPanel {
 					ProdutoDAO dao = new ProdutoDAO();
 					if (dao.deletar(p.getId()) == "NO") {
 						JOptionPane.showMessageDialog(null, "N�o foi possivel excluir esse produto",
-								"Problemas ao Excluir", 1, imgAlert1);
+								"Problemas ao Excluir", 1, imgAlert);
 					} else {
 						JOptionPane.showMessageDialog(null, "Exclus�o feita com sucesso");
 						limparCampos();
@@ -279,26 +279,47 @@ public class CadProduto extends JPanel {
 
 	}
 
-	public CadProduto() {
+	public CadUsuario() {
 
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		add(panel);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 0;
+		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 63, 0, 0, 64, 60, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		this.setLayout(gbl_panel);
 		
-		JLabel lblProduto = new JLabel("Produto");
-		GridBagConstraints gbc_lblProduto = new GridBagConstraints();
-		gbc_lblProduto.anchor = GridBagConstraints.EAST;
-		gbc_lblProduto.insets = new Insets(0, 0, 5, 5);
-		gbc_lblProduto.gridx = 0;
-		gbc_lblProduto.gridy = 0;
-		this.add(lblProduto, gbc_lblProduto);
+		JLabel label_1 = new JLabel("Usuario");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.anchor = GridBagConstraints.EAST;
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 0;
+		gbc_label_1.gridy = 1;
+		add(label_1, gbc_label_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 4;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 1;
+		add(textField, gbc_textField);
+		
+		JLabel label = new JLabel("Usuario");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 0;
+		gbc_label.gridy = 2;
+		add(label, gbc_label);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
@@ -308,23 +329,25 @@ public class CadProduto extends JPanel {
 		gbc_textField_1.gridwidth = 4;
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 0;
+		gbc_textField_1.gridy = 2;
 		this.add(textField_1, gbc_textField_1);
 		
-		JLabel label_2 = new JLabel("Quantidade");
-		GridBagConstraints gbc_label_2 = new GridBagConstraints();
-		gbc_label_2.anchor = GridBagConstraints.EAST;
-		gbc_label_2.insets = new Insets(0, 0, 5, 5);
-		gbc_label_2.gridx = 5;
-		gbc_label_2.gridy = 0;
-		this.add(label_2, gbc_label_2);
+		JLabel lblSenha = new JLabel("Senha");
+		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
+		gbc_lblSenha.anchor = GridBagConstraints.EAST;
+		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSenha.gridx = 0;
+		gbc_lblSenha.gridy = 3;
+		this.add(lblSenha, gbc_lblSenha);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.gridx = 6;
-		gbc_textField_2.gridy = 0;
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridwidth = 4;
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_2.gridx = 1;
+		gbc_textField_2.gridy = 3;
 		this.add(textField_2, gbc_textField_2);
 		
 		JButton button_1 = new JButton("Salvar");
@@ -332,7 +355,7 @@ public class CadProduto extends JPanel {
 		gbc_button_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button_1.insets = new Insets(0, 0, 5, 0);
 		gbc_button_1.gridx = 6;
-		gbc_button_1.gridy = 1;
+		gbc_button_1.gridy = 3;
 		this.add(button_1, gbc_button_1);
 		
 		JButton button_2 = new JButton("Novo");
